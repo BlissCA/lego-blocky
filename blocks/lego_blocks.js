@@ -4,11 +4,20 @@
 //
 
 // ------------------------------------------------------------
-// 1. Block definitions
+// Dynamic dropdown function
+// ------------------------------------------------------------
+function getDeviceDropdown() {
+  const devices = window.deviceManager?.devices || [];
+  return devices.length
+    ? devices.map(d => [d.name, d.name])
+    : [["No devices", "NONE"]];
+}
+
+// ------------------------------------------------------------
+// Block definitions
 // ------------------------------------------------------------
 Blockly.defineBlocksWithJsonArray([
 
-  // Connect a new LEGO Interface B
   {
     "type": "lego_connect",
     "message0": "connect new LEGO Interface B",
@@ -19,18 +28,16 @@ Blockly.defineBlocksWithJsonArray([
     "helpUrl": ""
   },
 
-  // Disconnect all devices
   {
     "type": "lego_disconnect",
     "message0": "disconnect all LEGO devices",
     "previousStatement": null,
     "nextStatement": null,
     "colour": 60,
-    "tooltip": "Disconnect all devices",
+    "tooltip": "Disconnect all LEGO devices",
     "helpUrl": ""
   },
 
-  // Set output (motor/relay)
   {
     "type": "lego_set_output",
     "message0": "device %1 set output %2 to %3",
@@ -38,7 +45,7 @@ Blockly.defineBlocksWithJsonArray([
       {
         "type": "field_dropdown",
         "name": "DEVICE",
-        "options": [["No devices", "NONE"]]
+        "options": getDeviceDropdown
       },
       {
         "type": "field_dropdown",
@@ -59,11 +66,10 @@ Blockly.defineBlocksWithJsonArray([
     "previousStatement": null,
     "nextStatement": null,
     "colour": 60,
-    "tooltip": "Set motor/relay output",
+    "tooltip": "Set motor/relay output on the selected device",
     "helpUrl": ""
   },
 
-  // Read last packet
   {
     "type": "lego_read_packet",
     "message0": "device %1 read last packet",
@@ -71,63 +77,13 @@ Blockly.defineBlocksWithJsonArray([
       {
         "type": "field_dropdown",
         "name": "DEVICE",
-        "options": [["No devices", "NONE"]]
+        "options": getDeviceDropdown
       }
     ],
     "output": null,
     "colour": 60,
-    "tooltip": "Read the last 19‑byte packet",
+    "tooltip": "Read the last 19-byte packet from the selected device",
     "helpUrl": ""
   }
 
 ]);
-  
-
-// ------------------------------------------------------------
-// 2. Dynamic device dropdown injection
-// ------------------------------------------------------------
-//
-// This updates the DEVICE dropdown in all LEGO blocks whenever
-// a device connects or disconnects.
-//
-function updateLegoDeviceDropdowns() {
-  const devices = window.deviceManager?.devices || [];
-  const names = devices.length
-    ? devices.map(d => [d.name, d.name])
-    : [["No devices", "NONE"]];
-
-  const blockTypes = ["lego_set_output", "lego_read_packet"];
-
-  blockTypes.forEach(type => {
-    const block = Blockly.Blocks[type];
-    if (!block) return;
-
-    // Register an extension for this block type
-    const extName = `dynamic_devices_${type}`;
-
-    if (!Blockly.Extensions.isRegistered(extName)) {
-      Blockly.Extensions.register(extName, function() {
-        const field = this.getField("DEVICE");
-        if (field) field.menuGenerator_ = names;
-      });
-    }
-
-    // Apply the extension to the block
-    Blockly.Extensions.apply(extName, block, false);
-  });
-
-  // Refresh all existing blocks in the workspace
-  if (window.workspace) {
-    window.workspace.getAllBlocks(false).forEach(block => {
-      if (block.getField("DEVICE")) {
-        const field = block.getField("DEVICE");
-        field.menuGenerator_ = names;
-        field.setValue(names[0][1]); // select first device or NONE
-      }
-    });
-  }
-}
-
-// Update dropdowns when devices connect or disconnect
-document.addEventListener("serial-connected", updateLegoDeviceDropdowns);
-document.addEventListener("serial-disconnected", updateLegoDeviceDropdowns);
