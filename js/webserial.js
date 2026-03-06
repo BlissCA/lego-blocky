@@ -8,17 +8,14 @@ class DeviceManager {
     this.legoBCount = 0;
 
     this.deviceListEl = document.getElementById("device-list");
+    this.connectLegoBBtn = document.getElementById("connectLegoBBtn")
     this.disconnectAllBtn = document.getElementById("disconnectAllBtn");
     this.paneEl = document.getElementById("device-pane");
-    //this.paneToggleEl = document.getElementById("device-pane-toggle");
 
+    this.connectLegoBBtn.addEventListener("click", () => this.connectLegoInterfaceB());
     this.disconnectAllBtn.addEventListener("click", () => this.disconnectAll());
+    
   }
-
-  /* togglePane() {
-    const collapsed = this.paneEl.classList.toggle("collapsed");
-    this.paneToggleEl.textContent = collapsed ? "»" : "«";
-  } */
 
   async connectLegoInterfaceB() {
     this.legoBCount += 1;
@@ -383,10 +380,10 @@ window.addEventListener("DOMContentLoaded", () => {
   window.deviceManager = new DeviceManager();
 });
 
-document.getElementById("connectLegoBBtn").addEventListener("click", async () => {
+/* document.getElementById("connectLegoBBtn").addEventListener("click", async () => {
   try {
     await window.deviceManager.connectLegoInterfaceB();
   } catch (err) {
     console.error("Global connect error:", err);
   }
-});
+}); */
