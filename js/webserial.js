@@ -283,6 +283,7 @@ class LegoInterfaceB {
     this.packetCount += 1;
     this.manager.updateDeviceEntry(this);
     this.log(`Packet #${this.packetCount}: [${Array.from(packet).join(", ")}]`);
+    this.lastPacket = packet;
 
     // TODO: decode packet for Blockly
   }

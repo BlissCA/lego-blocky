@@ -26,19 +26,7 @@
 
 <body>
 
-  <!-- LEFT COLLAPSIBLE DEVICE PANE -->
-  <div id="device-pane" class="device-pane expanded">
-    <div id="device-pane-toggle" class="device-pane-toggle">«</div>
-
-    <div class="device-pane-header">
-      <span>Devices</span>
-      <button id="disconnectAllBtn">Disconnect All</button>
-    </div>
-
-    <div id="device-list" class="device-list"></div>
-  </div>
-
-  <!-- MAIN AREA -->
+  <!-- MAIN AREA (LEFT SIDE) -->
   <div id="main-area">
 
     <div id="top-controls">
@@ -47,6 +35,19 @@
     </div>
 
     <div id="blocklyDiv"></div>
+  </div>
+
+  <!-- DEVICE PANE (RIGHT SIDE) -->
+  <div id="device-pane" class="device-pane expanded">
+
+    <div id="device-pane-toggle" class="device-pane-toggle">«</div>
+
+    <div class="device-pane-header">
+      <span>Devices</span>
+      <button id="disconnectAllBtn">Disconnect All</button>
+    </div>
+
+    <div id="device-list" class="device-list"></div>
   </div>
 
   <!-- TOOLBOX -->
@@ -85,9 +86,6 @@
     const workspace = Blockly.inject('blocklyDiv', {
       toolbox: document.getElementById('toolbox')
     });
-
-    // Old button replaced by new UI:
-    // document.getElementById('connectBtn').onclick = () => lego.connect();
 
     document.getElementById('runBtn').onclick = () => runCode(workspace);
   </script>

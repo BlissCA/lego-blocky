@@ -1,3 +1,4 @@
+/* GLOBAL LAYOUT */
 body {
   margin: 0;
   font-family: sans-serif;
@@ -6,7 +7,26 @@ body {
   overflow: hidden;
 }
 
-/* LEFT DEVICE PANE */
+/* MAIN AREA (LEFT SIDE) */
+#main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#top-controls {
+  padding: 6px 8px;
+  border-bottom: 1px solid #ccc;
+  background-color: #f5f5f5;
+}
+
+/* Blockly workspace */
+#blocklyDiv {
+  flex: 1;
+  position: relative;
+}
+
+/* DEVICE PANE (RIGHT SIDE) */
 .device-pane {
   position: relative;
   width: 260px;
@@ -14,26 +34,26 @@ body {
   color: #eee;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #444;
+  border-left: 1px solid #444;
 }
 
 .device-pane.collapsed {
   width: 24px;
 }
 
-/* TOGGLE ARROW */
+/* TOGGLE ARROW (VERTICALLY CENTERED) */
 .device-pane-toggle {
   position: absolute;
   top: 50%;
-  right: -10px;
+  left: -10px;
   transform: translateY(-50%);
   width: 20px;
   height: 40px;
   background-color: #333;
   color: #eee;
   border: 1px solid #444;
-  border-left: none;
-  border-radius: 0 4px 4px 0;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,21 +142,4 @@ body {
   font-family: monospace;
   font-size: 11px;
   white-space: pre-wrap;
-}
-
-/* MAIN AREA */
-#main-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-#top-controls {
-  padding: 6px 8px;
-  border-bottom: 1px solid #ccc;
-  background-color: #f5f5f5;
-}
-
-#blocklyArea {
-  flex: 1;
 }
