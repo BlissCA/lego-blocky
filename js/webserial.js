@@ -380,7 +380,8 @@ class LegoInterfaceB {
 // Bootstrap
 // ======================================================
 
-window.deviceManager = new DeviceManager();
+window.addEventListener("DOMContentLoaded", () => {
+  window.deviceManager = new DeviceManager();
 
 document.getElementById("connectLegoBBtn").addEventListener("click", async () => {
   try {
