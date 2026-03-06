@@ -97,19 +97,19 @@
     // Run button
     document.getElementById('runBtn').onclick = () => runCode(window.workspace);
   </script>
-  
+
   <script>
     // Save workspace to a file
     document.getElementById("saveBtn").onclick = () => {
       const xml = Blockly.Xml.workspaceToDom(window.workspace);
-      const text = Blockly.Xml.domToText(xml);
+      const text = Blockly.utils.xml.domToText(xml);
 
       const blob = new Blob([text], { type: "text/xml" });
       const url = URL.createObjectURL(blob);
 
       const a = document.createElement("a");
       a.href = url;
-      a.download = "lego_program.xml";
+      a.download = "program.xml";
       a.click();
 
       URL.revokeObjectURL(url);
@@ -126,7 +126,7 @@
       const reader = new FileReader();
 
       reader.onload = () => {
-        const xml = Blockly.Xml.textToDom(reader.result);
+        const xml = Blockly.utils.xml.textToDom(reader.result);
         window.workspace.clear();
         Blockly.Xml.domToWorkspace(xml, window.workspace);
         Blockly.svgResize(window.workspace);
