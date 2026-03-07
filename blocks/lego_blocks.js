@@ -1,4 +1,4 @@
-import * as Blockly from 'https://unpkg.com/blockly/core.js';
+// Blockly is global (loaded from blockly.min.js)
 
 function getDeviceDropdown() {
   const devices = window.deviceManager?.devices || [];
