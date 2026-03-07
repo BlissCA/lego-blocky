@@ -337,7 +337,7 @@ class LegoInterfaceB {
       } catch (err) {
         this.log(`Keep-alive error: ${err.message || err}`);
       }
-    }, 2000);
+    }, 1900);
   }
 
   stopKeepAlive() {
