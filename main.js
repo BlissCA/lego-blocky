@@ -1,7 +1,7 @@
-// Blockly ES modules
-import * as Blockly from "https://unpkg.com/blockly@12.4.1/core.js?module";
-import * as BlocklyJS from "https://unpkg.com/blockly@12.4.1/javascript.js?module";
-import "https://unpkg.com/blockly@12.4.1/blocks.js?module";
+// Blockly ES modules (correct paths)
+import * as Blockly from "https://unpkg.com/blockly@12.4.1/dist/core.js?module";
+import * as BlocklyJS from "https://unpkg.com/blockly@12.4.1/dist/javascript.js?module";
+import "https://unpkg.com/blockly@12.4.1/dist/blocks.js?module";
 
 // Extract generator
 const javascriptGenerator = BlocklyJS.javascriptGenerator;
@@ -16,6 +16,7 @@ import toolbox from "./toolbox/toolbox.js";
 // Device system
 import "./device/webserial.js";
 import "./device/deviceManager.js";
+
 
 // Helper: log to status pane
 function logStatus(msg) {
