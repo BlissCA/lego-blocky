@@ -201,21 +201,3 @@ const DEFAULTS = {
   PWR: 7,
   TIME: 50
 };
-
-Blockly.getMainWorkspace().addChangeListener(function (event) {
-  if (event.type !== Blockly.Events.BLOCK_CREATE) return;
-
-  const ws = Blockly.getMainWorkspace();
-  const createdIds = event.ids;
-
-  createdIds.forEach(id => {
-    const block = ws.getBlockById(id);
-    if (!block) return;
-
-    ["PORT", "PWR", "TIME"].forEach(name => {
-      if (block.getInput(name)) {
-        attachDefaultNumber(block, name, DEFAULTS[name]);
-      }
-    });
-  });
-});

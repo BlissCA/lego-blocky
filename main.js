@@ -66,6 +66,22 @@ const workspace = Blockly.inject("blocklyDiv", {
   theme: Blockly.Themes.Classic,
 });
 
+workspace.addChangeListener(function (event) {
+  if (event.type !== Blockly.Events.BLOCK_CREATE) return;
+
+  const createdIds = event.ids;
+  createdIds.forEach(id => {
+    const block = workspace.getBlockById(id);
+    if (!block) return;
+
+    ["PORT", "PWR", "TIME"].forEach(name => {
+      if (block.getInput(name)) {
+        attachDefaultNumber(block, name, DEFAULTS[name]);
+      }
+    });
+  });
+});
+
 // ---------------- RUN PROGRAM ----------------
 
 document.getElementById("runBtn").onclick = async () => {
