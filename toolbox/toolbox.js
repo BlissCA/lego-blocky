@@ -96,21 +96,201 @@ const toolbox = {
       "name": "LEGO",
       "colour": "20",
       "contents": [
-        { "kind": "block", "type": "lego_inp_on" },
-        { "kind": "block", "type": "lego_inp_val" },
-        { "kind": "block", "type": "lego_inp_tempf" },
-        { "kind": "block", "type": "lego_inp_tempc" },
-        { "kind": "block", "type": "lego_inp_rot" },
-        { "kind": "block", "type": "lego_out_on" },
-        { "kind": "block", "type": "lego_out_onl" },
-        { "kind": "block", "type": "lego_out_onr" },
-        { "kind": "block", "type": "lego_out_off" },
-        { "kind": "block", "type": "lego_out_float" },
-        { "kind": "block", "type": "lego_out_rev" },
-        { "kind": "block", "type": "lego_out_l" },
-        { "kind": "block", "type": "lego_out_r" },
-        { "kind": "block", "type": "lego_out_pow" },
-        { "kind": "block", "type": "lego_out_onfor" }
+        {
+          "kind": "block",
+          "type": "lego_inp_on",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_inp_val",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_inp_tempf",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_inp_tempc",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_inp_rot",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+
+        {
+          "kind": "block",
+          "type": "lego_out_on",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_out_onl",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_out_onr",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_out_off",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_out_float",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_out_rev",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_out_l",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_out_r",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            }
+          }
+        },
+
+        {
+          "kind": "block",
+          "type": "lego_out_pow",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            },
+            "PWR": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 7 }
+              }
+            }
+          }
+        },
+
+        {
+          "kind": "block",
+          "type": "lego_out_onfor",
+          "inputs": {
+            "PORT": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1 }
+              }
+            },
+            "TIME": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 50 }
+              }
+            }
+          }
+        }
       ]
     }
   ]
