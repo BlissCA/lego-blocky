@@ -69,8 +69,8 @@ export class LegoInterfaceB {
     await this.sendHandshake();
     this.log("Handshake complete.");
 
-    this.writer.releaseLock();
-    this.writer = null;
+//    this.writer.releaseLock();
+//    this.writer = null;
 
     this.setStatus("active", "Connected");
     document.dispatchEvent(new Event("serial-connected"));
