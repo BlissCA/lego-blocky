@@ -81,10 +81,11 @@ export class LegoInterfaceB {
 
   async sendHandshake() {
     this.log("Sending handshake part 1...");
-    await this.writer.write(this.HANDSHAKE_SEND_1);
-
+//    await this.writer.write(this.HANDSHAKE_SEND_1);
+    await this.writeBytes(this.HANDSHAKE_SEND_1);
     this.log("Sending handshake phrase...");
-    await this.writer.write(this.HANDSHAKE_SEND_2);
+//    await this.writer.write(this.HANDSHAKE_SEND_2);
+    await this.writeBytes(this.HANDSHAKE_SEND_2);
 
     const reply = await this.waitForHandshakeReply();
     this.log(`Received handshake reply: ${reply}`);
@@ -274,8 +275,14 @@ export class LegoInterfaceB {
   // ---------------- Outputs Processing ----------------
 
   async writeBytes(bytes) {
-    if (!this.writer) return;
-    await this.writer.write(bytes);
+    if (!this.port || !this.port.writable) return;
+
+    const writer = this.port.writable.getWriter();
+    try {
+      await writer.write(bytes);
+    } finally {
+      writer.releaseLock();
+    }
   }
 
   async sendCmdByte(base, port) {
