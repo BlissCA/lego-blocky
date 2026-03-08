@@ -1,7 +1,5 @@
-// Blockly JavaScript generator is global (loaded from blockly.min.js)
 const javascriptGenerator = Blockly.JavaScript;
 
-// Allow STOP-aware blocks to insert checks
 javascriptGenerator.addReservedWords("shouldStop");
 
 // ---------------- INPUT BLOCKS ----------------
@@ -9,7 +7,6 @@ javascriptGenerator.addReservedWords("shouldStop");
 javascriptGenerator.forBlock["lego_inp_on"] = function (block) {
   const dev  = block.getFieldValue("DEVICE");
   const port = javascriptGenerator.valueToCode(block, "PORT", javascriptGenerator.ORDER_NONE) || "0";
-
   return [
     `deviceManager.getDeviceByName("${dev}").inputOn(${port})`,
     javascriptGenerator.ORDER_NONE
@@ -19,7 +16,6 @@ javascriptGenerator.forBlock["lego_inp_on"] = function (block) {
 javascriptGenerator.forBlock["lego_inp_val"] = function (block) {
   const dev  = block.getFieldValue("DEVICE");
   const port = javascriptGenerator.valueToCode(block, "PORT", javascriptGenerator.ORDER_NONE) || "0";
-
   return [
     `deviceManager.getDeviceByName("${dev}").inputVal(${port})`,
     javascriptGenerator.ORDER_NONE
@@ -29,7 +25,6 @@ javascriptGenerator.forBlock["lego_inp_val"] = function (block) {
 javascriptGenerator.forBlock["lego_inp_tempf"] = function (block) {
   const dev  = block.getFieldValue("DEVICE");
   const port = javascriptGenerator.valueToCode(block, "PORT", javascriptGenerator.ORDER_NONE) || "0";
-
   return [
     `deviceManager.getDeviceByName("${dev}").inputTempF(${port})`,
     javascriptGenerator.ORDER_NONE
@@ -39,7 +34,6 @@ javascriptGenerator.forBlock["lego_inp_tempf"] = function (block) {
 javascriptGenerator.forBlock["lego_inp_tempc"] = function (block) {
   const dev  = block.getFieldValue("DEVICE");
   const port = javascriptGenerator.valueToCode(block, "PORT", javascriptGenerator.ORDER_NONE) || "0";
-
   return [
     `deviceManager.getDeviceByName("${dev}").inputTempC(${port})`,
     javascriptGenerator.ORDER_NONE
@@ -49,7 +43,6 @@ javascriptGenerator.forBlock["lego_inp_tempc"] = function (block) {
 javascriptGenerator.forBlock["lego_inp_rot"] = function (block) {
   const dev  = block.getFieldValue("DEVICE");
   const port = javascriptGenerator.valueToCode(block, "PORT", javascriptGenerator.ORDER_NONE) || "0";
-
   return [
     `deviceManager.getDeviceByName("${dev}").getRot(${port})`,
     javascriptGenerator.ORDER_NONE
