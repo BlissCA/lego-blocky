@@ -309,7 +309,7 @@ window.addEventListener("load", () => {
       "nextStatement": null,
       "colour": 20
     },
-    
+
     {
       "type": "lego_wait_until",
       "message0": "wait until %1",
@@ -338,6 +338,20 @@ window.addEventListener("load", () => {
       "previousStatement": null,
       "nextStatement": null,
       "colour": 60
+    },
+
+    {
+      "type": "lego_print_value",
+      "message0": "print value %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 160
     }
 
   ]);

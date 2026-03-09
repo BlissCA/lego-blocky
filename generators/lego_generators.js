@@ -122,3 +122,12 @@ if (shouldStop()) return;
 await new Promise(r => setTimeout(r, ${secs} * 1000));
 `;
 };
+
+javascriptGenerator.forBlock["lego_print_value"] = function (block) {
+  const value = javascriptGenerator.valueToCode(block, "VALUE", javascriptGenerator.ORDER_NONE) || '""';
+
+  return `
+if (shouldStop()) return;
+logStatus(String(${value}));
+`;
+};

@@ -118,7 +118,19 @@ const toolbox = {
               }
             }
           }
-        }
+        },
+        {
+          "kind": "block",
+          "type": "lego_print_value",
+          "inputs": {
+            "VALUE": {
+              "shadow": {
+                "type": "text",
+                "fields": { "TEXT": "Hello" }
+              }
+            }
+          }
+        }        
       ]
     },
     {
