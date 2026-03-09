@@ -184,7 +184,9 @@ export class LegoInterfaceB {
   handlePacket(packet) {
     this.packetCount += 1;
     this.manager?.updateDeviceEntry?.(this);
-//    this.log(`Packet #${this.packetCount}: [${Array.from(packet).join(", ")}]`);
+    if (window.debugLogPackets) {
+        this.log(`Packet #${this.packetCount}: [${Array.from(packet).join(", ")}]`);
+    }
     this.lastPacket = packet;
 
     for (let x = 0; x < 9; x++) {

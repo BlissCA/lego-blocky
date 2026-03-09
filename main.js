@@ -16,6 +16,7 @@ import "./device/deviceManager.js";
 
 let currentExecution = null;
 let stopRequested = false;
+let debugLogPackets = false;
 
 // Helper for generators to check stop condition
 window.shouldStop = () => stopRequested;
@@ -202,4 +203,9 @@ document.getElementById("fileInput").onchange = async e => {
 
 document.getElementById("clearStatusBtn").onclick = () => {
   document.getElementById("statusLog").textContent = "";
+};
+
+document.getElementById("debugPackets").onchange = e => {
+  debugLogPackets = e.target.checked;
+  console.log("Debug packet logging:", debugLogPackets);
 };

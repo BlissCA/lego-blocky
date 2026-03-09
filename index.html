@@ -20,7 +20,10 @@
     <button id="loadBtn">Load Project</button>
     <button id="runBtn">Run</button>
     <button id="stopBtn">Stop</button>
-
+    <div id="debugToggle">
+      <label for="debugPackets">Debug: Log Device Packets</label>
+      <input type="checkbox" id="debugPackets">
+    </div>
     <!-- Hidden file input for loading XML -->
     <input type="file" id="fileInput" accept=".json,application/json" style="display:none" />
   </header>
@@ -41,7 +44,7 @@
 
       <pre id="statusLog"></pre>
     </aside>
-    
+
   </main>
 
   <!-- Your ES‑module application -->
