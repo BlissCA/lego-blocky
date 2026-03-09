@@ -93,6 +93,36 @@ const toolbox = {
     },
     {
       "kind": "category",
+      "name": "Control+Wait",
+      "color": "280",
+      "contents": [
+        {
+          "kind": "block",
+          "type": "lego_wait_until",
+          "inputs": {
+            "COND": {
+              "shadow": {
+                "type": "logic_boolean"
+              }
+            }
+          }
+        },
+        {
+          "kind": "block",
+          "type": "lego_wait_time",
+          "inputs": {
+            "SECS": {
+              "shadow": {
+                "type": "math_number",
+                "fields": { "NUM": 1.00 }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "kind": "category",
       "name": "Lego B",
       "colour": "20",
       "contents": [

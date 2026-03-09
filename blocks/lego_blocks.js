@@ -308,7 +308,37 @@ window.addEventListener("load", () => {
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
-    }    
+    },
+    
+    {
+      "type": "lego_wait_until",
+      "message0": "wait until %1",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "COND",
+          "check": "Boolean"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 60
+    },
+
+    {
+      "type": "lego_wait_time",
+      "message0": "wait %1 seconds",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "SECS",
+          "check": "Number"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 60
+    }
 
   ]);
 });

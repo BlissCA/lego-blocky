@@ -102,3 +102,23 @@ if (shouldStop()) return;
 await deviceManager.getDeviceByName("${dev}").setRot(${port}, ${count});
 `;
 };
+
+javascriptGenerator.forBlock["lego_wait_until"] = function (block) {
+  const cond = javascriptGenerator.valueToCode(block, "COND", javascriptGenerator.ORDER_NONE) || "false";
+
+  return `
+while (!(${cond})) {
+  if (shouldStop()) return;
+  await new Promise(r => setTimeout(r, 10));
+}
+`;
+};
+
+javascriptGenerator.forBlock["lego_wait_time"] = function (block) {
+  const secs = javascriptGenerator.valueToCode(block, "SECS", javascriptGenerator.ORDER_NONE) || "0";
+
+  return `
+if (shouldStop()) return;
+await new Promise(r => setTimeout(r, ${secs} * 1000));
+`;
+};
