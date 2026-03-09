@@ -94,7 +94,7 @@ const toolbox = {
     {
       "kind": "category",
       "name": "Control+Wait",
-      "colour": "280",
+      "colour": "220",
       "contents": [
         {
           "kind": "block",
