@@ -15,19 +15,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_inp_on",
-      "message0": "device %1 input ON port %2",
+      "message0": "%1 inp %2 ON",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "output": "Boolean",
       "colour": 60,
       "tooltip": "Returns true if the input port is ON"
@@ -35,19 +32,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_inp_val",
-      "message0": "device %1 input value port %2",
+      "message0": "%1 inp %2 value",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "output": "Number",
       "colour": 60,
       "tooltip": "Returns the 10‑bit analog value"
@@ -55,19 +49,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_inp_tempf",
-      "message0": "device %1 temperature °F port %2",
+      "message0": "%1 inp %2 temp.°F",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "output": "Number",
       "colour": 60,
       "tooltip": "Returns temperature in Fahrenheit"
@@ -75,19 +66,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_inp_tempc",
-      "message0": "device %1 temperature °C port %2",
+      "message0": "%1 inp %2 temp.°C",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "output": "Number",
       "colour": 60,
       "tooltip": "Returns temperature in Celsius"
@@ -95,19 +83,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_inp_rot",
-      "message0": "device %1 rotation count port %2",
+      "message0": "%1 inp %2 rotation count",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "output": "Number",
       "colour": 60,
       "tooltip": "Returns rotation counter"
@@ -117,19 +102,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_on",
-      "message0": "device %1 output ON port %2",
+      "message0": "%1 out %2 ON",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -137,19 +119,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_onl",
-      "message0": "device %1 output ON Left port %2",
+      "message0": "%1 out %2 ON Left",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -157,19 +136,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_onr",
-      "message0": "device %1 output ON Right port %2",
+      "message0": "%1 out %2 ON Right",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -177,19 +153,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_off",
-      "message0": "device %1 output OFF port %2",
+      "message0": "%1 outp %2 OFF",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -197,19 +170,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_float",
-      "message0": "device %1 output FLOAT port %2",
+      "message0": "%1 outp %2 FLOAT",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -217,19 +187,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_rev",
-      "message0": "device %1 output REVERSE port %2",
+      "message0": "%1 out %2 REVERSE",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -237,19 +204,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_l",
-      "message0": "device %1 output SET LEFT port %2",
+      "message0": "%1 out %2 SET LEFT",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -257,19 +221,16 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_r",
-      "message0": "device %1 output SET RIGHT port %2",
+      "message0": "%1 out %2 SET RIGHT",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -277,17 +238,13 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_pow",
-      "message0": "device %1 set power port %2 power %3",
+      "message0": "%1 out %2 set power %3",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
           "type": "input_value",
           "name": "PORT",
           "check": "Number",
-          "shadow": {
-            "type": "math_number",
-            "fields": { "NUM": 1 }
-          }
         },
         {
           "type": "input_value",
@@ -299,6 +256,7 @@ window.addEventListener("load", () => {
           }
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
@@ -320,6 +278,7 @@ window.addEventListener("load", () => {
           "check": "Number",
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
