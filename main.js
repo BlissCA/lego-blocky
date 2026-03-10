@@ -66,6 +66,14 @@ const workspace = Blockly.inject("blocklyDiv", {
   toolbox,
   renderer: "geras",
   theme: Blockly.Themes.Classic,
+  zoom: {
+    controls: true,   // ← THIS enables the + / – / reset buttons
+    wheel: true,
+    startScale: 1.0,
+    maxScale: 3,
+    minScale: 0.3,
+    scaleSpeed: 1.2
+  }
 });
 
 // ---------------- RUN PROGRAM ----------------
