@@ -153,7 +153,7 @@ window.addEventListener("load", () => {
 
     {
       "type": "lego_out_off",
-      "message0": "%1 outp %2 OFF",
+      "message0": "%1 out %2 OFF",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getDeviceDropdown },
         {
