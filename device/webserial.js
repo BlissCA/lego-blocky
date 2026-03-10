@@ -23,6 +23,13 @@ export class LegoInterfaceB {
 
     this.packetBuffer = [];
     this.packetCount = 0;
+  
+    // Cache of last output states
+    // Last known output mode per port: "on", "off", "onL", "onR", "float", "rev", "L", "R"
+    this.outputCache = {};
+
+    // Last known power per port (0–7)
+    this.outputPower = {};
 
     this.status = "idle";
     this.statusMessage = "Idle";
@@ -64,13 +71,8 @@ export class LegoInterfaceB {
     this.log("Port opened.");
     this.setStatus("handshaking", "Performing handshake...");
 
-//    this.writer = this.port.writable.getWriter();
-
     await this.sendHandshake();
     this.log("Handshake complete.");
-
-//    this.writer.releaseLock();
-//    this.writer = null;
 
     this.setStatus("active", "Connected");
     document.dispatchEvent(new Event("serial-connected"));
@@ -238,6 +240,9 @@ export class LegoInterfaceB {
     this.stopKeepAlive();
     this.readingActive = false;
 
+    this.outputState = {};
+    this.outputPower = {};
+
     try {
       if (this.reader) {
         await this.reader.cancel();
@@ -274,6 +279,15 @@ export class LegoInterfaceB {
     this.log("Disconnected cleanly.");
   }
 
+  // ---------------- Helper Method to Check Cache ----------------
+  setOutputMode(port, mode) {
+    if (this.outputState[port] === mode) {
+      return false; // no change → skip sending
+    }
+    this.outputState[port] = mode;
+    return true;    // changed → send command
+  }
+
   // ---------------- Outputs Processing ----------------
 
   async writeBytes(bytes) {
@@ -296,17 +310,52 @@ export class LegoInterfaceB {
     return (port - 1) & 7;
   }
 
-  async outOn(port)    { await this.sendCmdByte(0x28, this.normPort(port)); }
-  async outOnL(port)   { await this.sendCmdByte(0x10, this.normPort(port)); }
-  async outOnR(port)   { await this.sendCmdByte(0x18, this.normPort(port)); }
-  async outOff(port)   { await this.sendCmdByte(0x38, this.normPort(port)); }
-  async outFloat(port) { await this.sendCmdByte(0x30, this.normPort(port)); }
-  async outRev(port)   { await this.sendCmdByte(0x20, this.normPort(port)); }
-  async outL(port)     { await this.sendCmdByte(0x40, this.normPort(port)); }
-  async outR(port)     { await this.sendCmdByte(0x48, this.normPort(port)); }
+  async outOn(port) {
+    if (!this.setOutputMode(port, "on")) return;
+    await this.sendCmdByte(0x28, this.normPort(port));
+  }
+
+  async outOnL(port) {
+    if (!this.setOutputMode(port, "onL")) return;
+    await this.sendCmdByte(0x10, this.normPort(port));
+  }
+
+  async outOnR(port) {
+    if (!this.setOutputMode(port, "onR")) return;
+    await this.sendCmdByte(0x18, this.normPort(port));
+  }
+
+  async outOff(port) {
+    if (!this.setOutputMode(port, "off")) return;
+    await this.sendCmdByte(0x38, this.normPort(port));
+  }
+
+  async outFloat(port) {
+    if (!this.setOutputMode(port, "float")) return;
+    await this.sendCmdByte(0x30, this.normPort(port));
+  }
+
+  async outRev(port) {
+    if (!this.setOutputMode(port, "rev")) return;
+    await this.sendCmdByte(0x20, this.normPort(port));
+  }
+
+  async outL(port) {
+    if (!this.setOutputMode(port, "L")) return;
+    await this.sendCmdByte(0x40, this.normPort(port));
+  }
+
+  async outR(port) {
+    if (!this.setOutputMode(port, "R")) return;
+    await this.sendCmdByte(0x48, this.normPort(port));
+  }
 
   async outPow(port, power) {
     const p = power & 0x07;
+    const key = `pow_${port}`;
+    if (this.outputPower[key] === p) return;
+    this.outputPower[key] = p;
+
     const cmd = (0xB0 | p) & 0xFF;
     const mask = (1 << this.normPort(port)) & 0xFF;
     await this.writeBytes(new Uint8Array([cmd, mask]));
