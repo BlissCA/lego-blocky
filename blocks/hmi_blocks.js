@@ -22,8 +22,10 @@ Blockly.Blocks["hmi_button"] = {
         "BTN"
       );
 
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
+    // ⭐ UI block only — no connections
+    this.setOutput(false);
+    this.setPreviousStatement(false);
+    this.setNextStatement(false);
     this.setColour(20);
   }
 };
