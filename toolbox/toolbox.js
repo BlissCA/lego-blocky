@@ -392,7 +392,7 @@ const toolbox = {
         }
       ]
     },
-    {
+/*     {
       "kind": "category",
       "name": "HMI",
       "colour": 45,
@@ -403,7 +403,7 @@ const toolbox = {
         { "kind": "block", "type": "hmi_slider" },
         { "kind": "block", "type": "hmi_display" }
       ]
-    }
+    } */
   ]
 };
 

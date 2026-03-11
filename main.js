@@ -3,9 +3,9 @@ const javascriptGenerator = Blockly.JavaScript;
 
 // Custom blocks + generators
 import "./blocks/lego_blocks.js";
-import "./blocks/hmi_blocks.js";
+//import "./blocks/hmi_blocks.js";
 import "./generators/lego_generators.js";
-import "./generators/hmi_generators.js";
+//import "./generators/hmi_generators.js";
 
 // Toolbox
 import toolbox from "./toolbox/toolbox.js";
@@ -44,7 +44,7 @@ window.ONSF = function(id, currentValue) {
   return (prev && !currentValue);
 };
 
-// ---------------- HMI STATE ----------------
+/* // ---------------- HMI STATE ----------------
 window.hmi = {
   button: {},
   slider: {},
@@ -57,7 +57,7 @@ window.resetHMI = function () {
   for (const id in window.hmi.button) {
     window.hmi.button[id] = false;
   }
-};
+}; */
 
 // ---------------- STATUS LOG ----------------
 
