@@ -22,6 +22,26 @@ window.debugLogPackets = debugLogPackets;
 // Helper for generators to check stop condition
 window.shouldStop = () => stopRequested;
 
+// ---------------- One Shot Management ----------------
+// Memory for all ONS blocks (keyed by block ID)
+window._onsMemory = {};
+
+function ONS(id, currentValue) {
+  const prev = window._onsMemory[id] ?? false;
+  window._onsMemory[id] = currentValue;
+
+  // Rising edge
+  return (!prev && currentValue);
+}
+
+function ONSF(id, currentValue) {
+  const prev = window._onsMemory[id] ?? false;
+  window._onsMemory[id] = currentValue;
+
+  // Falling edge
+  return (prev && !currentValue);
+}
+
 // ---------------- STATUS LOG ----------------
 
 function logStatus(msg) {
@@ -226,22 +246,3 @@ document.getElementById("clearWorkspaceBtn").onclick = () => {
     workspace.clearUndo();
   }
 };
-
-// ---------------- One Shot Management ----------------
-window._onsMemory = {};
-
-function ONS(id, currentValue) {
-  const prev = window._onsMemory[id] ?? false;
-  window._onsMemory[id] = currentValue;
-
-  // Rising edge
-  return (!prev && currentValue);
-}
-
-function ONSF(id, currentValue) {
-  const prev = window._onsMemory[id] ?? false;
-  window._onsMemory[id] = currentValue;
-
-  // Falling edge
-  return (prev && !currentValue);
-}
