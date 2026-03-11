@@ -1,0 +1,178 @@
+{
+  "blocks": {
+    "languageVersion": 0,
+    "blocks": [
+      {
+        "type": "lego_out_on",
+        "id": "hGzq0W?]]Owx/DY@_|,O",
+        "x": 274,
+        "y": -103,
+        "fields": {
+          "DEVICE": "LegoB1"
+        },
+        "inputs": {
+          "PORT": {
+            "shadow": {
+              "type": "math_number",
+              "id": "KL$J,}o+n`zwIolRqZ7E",
+              "fields": {
+                "NUM": 1
+              }
+            }
+          }
+        },
+        "next": {
+          "block": {
+            "type": "controls_whileUntil",
+            "id": "u6m9i;W#S51K:-z}P2OD",
+            "fields": {
+              "MODE": "WHILE"
+            },
+            "inputs": {
+              "BOOL": {
+                "block": {
+                  "type": "logic_compare",
+                  "id": "r*@c?q%Z@:Xi}AwT5`hT",
+                  "fields": {
+                    "OP": "EQ"
+                  },
+                  "inputs": {
+                    "A": {
+                      "block": {
+                        "type": "lego_inp_on",
+                        "id": "ynjsAe^J-e?f)o3/j=6)",
+                        "fields": {
+                          "DEVICE": "LegoB1"
+                        },
+                        "inputs": {
+                          "PORT": {
+                            "shadow": {
+                              "type": "math_number",
+                              "id": "^PnCdGMmmfib(oZp*z9J",
+                              "fields": {
+                                "NUM": 2
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "B": {
+                      "block": {
+                        "type": "logic_boolean",
+                        "id": "3=I}P(TZY#G}/{W`PAxC",
+                        "fields": {
+                          "BOOL": "FALSE"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "DO": {
+                "block": {
+                  "type": "controls_if",
+                  "id": "=9dYh:|ASV~[y?/P;k/x",
+                  "inputs": {
+                    "IF0": {
+                      "block": {
+                        "type": "ons_rising",
+                        "id": ";OK]?nrnC4~{^MrR8Q*s",
+                        "inputs": {
+                          "BOOL": {
+                            "shadow": {
+                              "type": "logic_boolean",
+                              "id": "BmQ%dY8|Ys(vKc*YZ`H1",
+                              "fields": {
+                                "BOOL": "TRUE"
+                              }
+                            },
+                            "block": {
+                              "type": "lego_inp_on",
+                              "id": "~zLuvP4CTCd(S+fp[X;a",
+                              "fields": {
+                                "DEVICE": "LegoB1"
+                              },
+                              "inputs": {
+                                "PORT": {
+                                  "shadow": {
+                                    "type": "math_number",
+                                    "id": "_$WoLJ8M}wQX5@Z=g5*k",
+                                    "fields": {
+                                      "NUM": 1
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "DO0": {
+                      "block": {
+                        "type": "lego_out_rev",
+                        "id": ")sjV17eu]YY|(!}2aUL-",
+                        "fields": {
+                          "DEVICE": "LegoB1"
+                        },
+                        "inputs": {
+                          "PORT": {
+                            "shadow": {
+                              "type": "math_number",
+                              "id": "#cxFJ/[Aze~lRTM5X3-^",
+                              "fields": {
+                                "NUM": 1
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "next": {
+                    "block": {
+                      "type": "lego_wait_time",
+                      "id": "TkL7]8CvukyReoJb-,@?",
+                      "inputs": {
+                        "SECS": {
+                          "shadow": {
+                            "type": "math_number",
+                            "id": "Kd6PVHE_-a=l`0g_(OLH",
+                            "fields": {
+                              "NUM": 0.05
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "next": {
+              "block": {
+                "type": "lego_out_off",
+                "id": "lvRbR1it1Q]hm{;?$RYc",
+                "fields": {
+                  "DEVICE": "LegoB1"
+                },
+                "inputs": {
+                  "PORT": {
+                    "shadow": {
+                      "type": "math_number",
+                      "id": "@m5!HKRJT$)BH%UF[-6(",
+                      "fields": {
+                        "NUM": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
