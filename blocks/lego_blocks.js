@@ -322,7 +322,7 @@ window.addEventListener("load", () => {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": 60
+      "colour": 220
     },
 
     {
@@ -337,7 +337,7 @@ window.addEventListener("load", () => {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": 60
+      "colour": 220
     },
 
     {
@@ -351,7 +351,7 @@ window.addEventListener("load", () => {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": 160
+      "colour": 220
     },
 
     {
@@ -361,7 +361,7 @@ window.addEventListener("load", () => {
         { "type": "input_value", "name": "BOOL", "check": "Boolean" }
       ],
       "output": "Boolean",
-      "colour": 200
+      "colour": 220
     },
 
     {
@@ -371,7 +371,7 @@ window.addEventListener("load", () => {
         { "type": "input_value", "name": "BOOL", "check": "Boolean" }
       ],
       "output": "Boolean",
-      "colour": 200
+      "colour": 220
     }
 
 
