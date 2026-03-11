@@ -8,10 +8,15 @@ Blockly.Blocks["hmi_button"] = {
     this.appendDummyInput()
       .appendField("HMI Button")
       .appendField(
-        new Blockly.FieldButton("Press", () => {
-          const id = this.id;
-          window.hmi.button[id] = true;
-        }),
+        new Blockly.FieldImage(
+        "img/play-button.png",   // your button image
+        60, 30,             // width, height
+        "*",                // alt text
+        () => {
+            const id = this.id;
+            window.hmi.button[id] = true;
+        }
+        ),
         "BTN"
       );
     this.setOutput(true, "Boolean");
