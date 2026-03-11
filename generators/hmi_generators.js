@@ -2,6 +2,13 @@
 const javascriptGenerator = Blockly.JavaScript;
 
 //
+// BUTTON dummy empty generator
+//
+javascriptGenerator.forBlock["hmi_button"] = function (block) {
+  return "";
+};
+
+//
 // BUTTON STATE
 //
 javascriptGenerator.forBlock["hmi_button_state"] = function (block) {
