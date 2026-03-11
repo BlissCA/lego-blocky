@@ -110,6 +110,7 @@ javascriptGenerator.forBlock["lego_wait_until"] = function (block) {
 while (!(${cond})) {
   if (shouldStop()) return;
   await new Promise(r => setTimeout(r, 10));
+  await Promise.resolve();   // ⭐ allow UI events
 }
 `;
 };
@@ -120,6 +121,7 @@ javascriptGenerator.forBlock["lego_wait_time"] = function (block) {
   return `
     if (shouldStop()) return;
     await new Promise(r => setTimeout(r, ${secs} * 1000));
+    await Promise.resolve();   // ⭐ allow UI events
     window.resetHMI();
   `;
 };
