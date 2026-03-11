@@ -71,7 +71,7 @@ const toolbox = {
         { "kind": "block", "type": "text_getSubstring" },
         { "kind": "block", "type": "text_changeCase" },
         { "kind": "block", "type": "text_trim" },
-        { "kind": "block", "type": "text_print" },
+        // { "kind": "block", "type": "text_print" },  // the standard Print block use an Alert Winddow which conflict with serial communication
         { "kind": "block", "type": "text_prompt_ext" }
       ]
     },
