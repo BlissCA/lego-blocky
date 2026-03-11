@@ -1,4 +1,5 @@
 /* global Blockly, javascriptGenerator */
+const javascriptGenerator = Blockly.JavaScript;
 
 //
 // BUTTON
