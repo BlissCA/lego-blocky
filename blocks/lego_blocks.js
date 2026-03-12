@@ -611,6 +611,7 @@ Blockly.Blocks["lego_multi_pow"] = {
       .appendField("8")
       .appendField(new Blockly.FieldCheckbox("FALSE"), "P8");
 
+    this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(20);
