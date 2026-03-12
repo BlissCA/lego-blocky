@@ -177,64 +177,70 @@ const toolbox = {
       "colour": "20",
       "contents": [
         {
-          "kind": "block",
-          "type": "lego_inp_on",
-          "inputs": {
-            "PORT": {
-              "shadow": {
-                "type": "math_number",
-                "fields": { "NUM": 1 }
+          "kind": "category",
+          "name": "Inputs",
+          "contents": [
+            {
+              "kind": "block",
+              "type": "lego_inp_on",
+              "inputs": {
+                "PORT": {
+                  "shadow": {
+                    "type": "math_number",
+                    "fields": { "NUM": 1 }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "lego_inp_val",
+              "inputs": {
+                "PORT": {
+                  "shadow": {
+                    "type": "math_number",
+                    "fields": { "NUM": 1 }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "lego_inp_tempf",
+              "inputs": {
+                "PORT": {
+                  "shadow": {
+                    "type": "math_number",
+                    "fields": { "NUM": 1 }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "lego_inp_tempc",
+              "inputs": {
+                "PORT": {
+                  "shadow": {
+                    "type": "math_number",
+                    "fields": { "NUM": 1 }
+                  }
+                }
+              }
+            },
+            {
+              "kind": "block",
+              "type": "lego_inp_rot",
+              "inputs": {
+                "PORT": {
+                  "shadow": {
+                    "type": "math_number",
+                    "fields": { "NUM": 1 }
+                  }
+                }
               }
             }
-          }
-        },
-        {
-          "kind": "block",
-          "type": "lego_inp_val",
-          "inputs": {
-            "PORT": {
-              "shadow": {
-                "type": "math_number",
-                "fields": { "NUM": 1 }
-              }
-            }
-          }
-        },
-        {
-          "kind": "block",
-          "type": "lego_inp_tempf",
-          "inputs": {
-            "PORT": {
-              "shadow": {
-                "type": "math_number",
-                "fields": { "NUM": 1 }
-              }
-            }
-          }
-        },
-        {
-          "kind": "block",
-          "type": "lego_inp_tempc",
-          "inputs": {
-            "PORT": {
-              "shadow": {
-                "type": "math_number",
-                "fields": { "NUM": 1 }
-              }
-            }
-          }
-        },
-        {
-          "kind": "block",
-          "type": "lego_inp_rot",
-          "inputs": {
-            "PORT": {
-              "shadow": {
-                "type": "math_number",
-                "fields": { "NUM": 1 }
-              }
-            }
-          }
+          ]
         },
 
         {
