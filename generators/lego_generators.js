@@ -249,3 +249,20 @@ javascriptGenerator.forBlock["lego_multi_out_R"] = function (block) {
   await deviceManager.getDeviceByName("${dev}").multiOutR(0x${mask.toString(16)});
   `;
 };
+
+javascriptGenerator.forBlock["lego_multi_pow"] = function (block) {
+  const dev = block.getFieldValue("DEVICE");
+  const pwr = block.getFieldValue("PWR");
+  let mask = 0;
+
+  for (let p = 1; p <= 8; p++) {
+    if (block.getFieldValue("P" + p) === "TRUE") {
+      mask |= (1 << (p - 1));
+    }
+  }
+
+  return `
+  if (shouldStop()) return;
+  await deviceManager.getDeviceByName("${dev}").multiOutPow(${pwr}, 0x${mask.toString(16)});
+  `;
+};
