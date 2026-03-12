@@ -25,12 +25,6 @@ export class LegoInterfaceB {
     this.packetCount = 0;
   
     // Cache of last output states
-    // Last known output mode per port: "on", "off", "offAll" "onL", "onR", "float", "rev", "L", "R"
-    this.outputState = {};
-
-    // Last known power per port (0–7)
-    this.outputPower = {};
-
     // New Output Cache that work for both single and multiple commands.
     this.portState = {};
     for (let p = 1; p <= 8; p++) {
@@ -246,8 +240,10 @@ export class LegoInterfaceB {
     this.stopKeepAlive();
     this.readingActive = false;
 
-    this.outputState = {};
-    this.outputPower = {};
+    this.portState = {};
+    for (let p = 1; p <= 8; p++) {
+      this.portState[p] = { mode: "off", power: 7 };
+    }
 
     try {
       if (this.reader) {
@@ -283,22 +279,6 @@ export class LegoInterfaceB {
     this.setStatus("disconnected", "Disconnected");
     document.dispatchEvent(new Event("serial-disconnected"));
     this.log("Disconnected cleanly.");
-  }
-
-  // ---------------- Helper Method to Check Cache ----------------
-  setOutputMode(port, mode) {
-    if (this.outputState[port] === mode) {
-      return false; // no change → skip sending
-    }
-    this.outputState[port] = mode;
-    if (port > 0) {
-      this.outputState[0] = "allow"; // we allow dummy port 0 (which means "all ports") command after any port 1-8 commands
-    } else {
-      for (let p = 1; p <= 8; p++) {
-        this.outputState[p] = "off"; // if All Off command, assign mode to "off" to all ports
-      }
-    }
-    return true;    // changed → send command
   }
 
   // ---------------- Helper Method to Update Cache for single port commands ----------------
@@ -395,7 +375,6 @@ export class LegoInterfaceB {
   }
 
   async outRev(port) {
-    // if (!this.setOutputMode(port, "rev")) return; // NO CACHE for rev, since it can be used consecutively to reverse direction
     await this.sendCmdByte(0x20, this.normPort(port));
   }
 
@@ -426,7 +405,7 @@ export class LegoInterfaceB {
 
   // ---------------- Multiple Ports Outputs Processing ----------------
   async multiOutOn(mask) {
-    const cmd = [0x91, mask];
+    const cmd = new Uint8Array([0x91, mask]);
     if (!this.shouldSendMulti(mask, "on")) return;
     await this.writeBytes(cmd);
   }
