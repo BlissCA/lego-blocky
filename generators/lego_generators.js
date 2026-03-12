@@ -154,6 +154,7 @@ javascriptGenerator.forBlock["ons_falling"] = function(block) {
 };
 
 javascriptGenerator.forBlock["lego_multi_out_on"] = function (block) {
+  const dev = block.getFieldValue("DEVICE");
   let mask = 0;
 
   for (let p = 1; p <= 8; p++) {
