@@ -393,6 +393,7 @@ window.addEventListener("load", () => {
 Blockly.Blocks["lego_multi_out_on"] = {
   init: function () {
     this.appendDummyInput()
+      .appendField(new Blockly.FieldDropdown(getDeviceDropdown), "DEVICE")
       .appendField("Multi Out ON");
 
     this.appendDummyInput()
