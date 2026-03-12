@@ -285,6 +285,7 @@ export class LegoInterfaceB {
       return false; // no change → skip sending
     }
     this.outputState[port] = mode;
+    if (port === 0) {this.outputState[port] = "allow";} // we allow dummy port 0 (which means "all ports") command after any port 1-8 commands
     return true;    // changed → send command
   }
 
@@ -331,7 +332,7 @@ export class LegoInterfaceB {
   }
 
   async outOffAll() {
-    if (!this.setOutputMode("offAll")) return;
+    if (!this.setOutputMode(0,"offAll")) return;
     await this.writeBytes(new Uint8Array([0x90, 0xFF]));
   }
 
