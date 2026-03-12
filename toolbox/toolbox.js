@@ -434,7 +434,16 @@ const toolbox = {
             {
               "kind": "block",
               "type": "lego_multi_pow",
-              
+              "inputs": {
+                "PWR": {
+                  "shadow": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 7
+                    }
+                  }
+                }
+              }              
             },
             {
               "kind": "block",
