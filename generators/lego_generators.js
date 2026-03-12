@@ -252,9 +252,9 @@ javascriptGenerator.forBlock["lego_multi_out_R"] = function (block) {
 
 javascriptGenerator.forBlock["lego_multi_pow"] = function (block) {
   const dev = block.getFieldValue("DEVICE");
-  const pwr = block.getFieldValue("PWR");
-  let mask = 0;
+  const pwr = javascriptGenerator.valueToCode(block, "PWR", javascriptGenerator.ORDER_NONE) || "0";
 
+  let mask = 0;
   for (let p = 1; p <= 8; p++) {
     if (block.getFieldValue("P" + p) === "TRUE") {
       mask |= (1 << (p - 1));
