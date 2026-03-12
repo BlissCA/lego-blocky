@@ -584,15 +584,17 @@ Blockly.Blocks["lego_multi_out_R"] = {
 
 Blockly.Blocks["lego_multi_pow"] = {
   init: function () {
-    this.appendDummyInput()
+    this.appendDummyInput("ROW1")
       .appendField(new Blockly.FieldDropdown(getDeviceDropdown), "DEVICE")
       .appendField("Multi Out Set Pwr")
+       .appendField("Power");
+
     this.appendValueInput("PWR")
       .setCheck("Number")
-      .appendField("Power");
+      .setAlign(Blockly.ALIGN_RIGHT);
     this.setInputsInline(true);
 
-    this.appendDummyInput()
+    this.appendDummyInput("ROW2")
       .appendField("1")
       .appendField(new Blockly.FieldCheckbox("FALSE"), "P1")
       .appendField("2")
@@ -602,7 +604,7 @@ Blockly.Blocks["lego_multi_pow"] = {
       .appendField("4")
       .appendField(new Blockly.FieldCheckbox("FALSE"), "P4");
 
-    this.appendDummyInput()
+    this.appendDummyInput("ROW3")
       .appendField("5")
       .appendField(new Blockly.FieldCheckbox("FALSE"), "P5")
       .appendField("6")
