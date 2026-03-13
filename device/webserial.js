@@ -26,6 +26,10 @@ export class LegoInterfaceB {
 
     this.handshakeActive = false;
 
+    // Track last valid packet time + monitor
+    this.lastPacketTime = 0;
+    this.packetMonitor = null;
+
     // Cache of last output states
     // New Output Cache that work for both single and multiple commands.
     this.portState = {};
@@ -102,6 +106,7 @@ export class LegoInterfaceB {
     // 5. Start background tasks
     this.startKeepAlive();
     this.startContinuousReader();
+    this.startPacketMonitor();
   }
 
   async sendHandshake() {
@@ -169,7 +174,7 @@ export class LegoInterfaceB {
 
     return result;
   }
-  
+
   // ---------------- Continuous 19-byte Reader ----------------
 
   async startContinuousReader() {
@@ -189,6 +194,7 @@ export class LegoInterfaceB {
         if (this.readingActive) {
           this.log(`Read error: ${err.message || err}`);
           this.setStatus("error", "Read error");
+          this.manager?.handleDeviceLost?.(this);
         }
       } finally {
         if (this.reader) {
@@ -215,6 +221,8 @@ export class LegoInterfaceB {
 
   handlePacket(packet) {
     this.packetCount += 1;
+    this.lastPacketTime = performance.now();
+
     this.manager?.updateDeviceEntry?.(this);
     if (window.debugLogPackets) {
         this.log(`Packet #${this.packetCount}: [${Array.from(packet).join(", ")}]`);
@@ -234,6 +242,20 @@ export class LegoInterfaceB {
         this.iRot[x] += change;
       }
     }
+  }
+
+  startPacketMonitor() {
+    this.lastPacketTime = performance.now();
+    this.packetMonitor = setInterval(() => {
+      const now = performance.now();
+      // No packets for 3000 ms → consider device lost
+      if (now - this.lastPacketTime > 3000) {
+        this.log("Packet timeout — device likely disconnected.");
+        clearInterval(this.packetMonitor);
+        this.packetMonitor = null;
+        this.manager?.handleDeviceLost?.(this);
+      }
+    }, 500);
   }
 
   // ---------------- Keep-Alive ----------------
@@ -269,6 +291,11 @@ export class LegoInterfaceB {
 
     this.stopKeepAlive();
     this.readingActive = false;
+
+    if (this.packetMonitor) {
+      clearInterval(this.packetMonitor);
+      this.packetMonitor = null;
+    }
 
     this.portState = {};
     for (let p = 1; p <= 8; p++) {
@@ -315,6 +342,11 @@ export class LegoInterfaceB {
   async forceDisconnect() {
     this.stopKeepAlive();
     this.readingActive = false;
+
+    if (this.packetMonitor) {
+      clearInterval(this.packetMonitor);
+      this.packetMonitor = null;
+    }
 
     try { await this.reader?.cancel(); } catch {}
     try { this.reader?.releaseLock(); } catch {}

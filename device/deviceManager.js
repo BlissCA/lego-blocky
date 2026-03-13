@@ -116,6 +116,24 @@ export class DeviceManager {
     window.logStatus?.("All devices disconnected.");
   }
 
+
+  // -------------------------
+  // Handle Device Loss
+  // -------------------------
+
+  handleDeviceLost(dev) {
+    window.logStatus?.(`Lost device ${dev.name}`);
+
+    if (window.currentExecution) {
+      window.stopRequested = true;
+      window.logStatus?.("Program stopped due to device loss.");
+    }
+
+    dev.forceDisconnect();
+    this._removeDevice(dev);
+    window.refreshDevicesPanel?.();
+  }
+
   // -------------------------
   // Lookup
   // -------------------------
