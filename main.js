@@ -153,7 +153,7 @@ document.getElementById("runBtn").onclick = async () => {
     }
   } catch (err) {
     if (!stopRequested) {
-      logStatus("Error: " + err);
+      logStatus(err);
       console.error(err);
     }
   } finally {
