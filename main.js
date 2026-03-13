@@ -182,7 +182,7 @@ document.getElementById("stopBtn").onclick = async () => {
 document.getElementById("connectBtn").onclick = async () => {
   try {
     await window.deviceManager.connectLegoInterfaceB();
-    logStatus("Connected to LEGO Interface B.");
+  //  logStatus("Connected to LEGO Interface B.");
     refreshDevicesPanel();
   } catch (err) {
     logStatus("Connect error: " + err);
