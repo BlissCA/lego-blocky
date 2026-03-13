@@ -85,7 +85,15 @@ export class LegoInterfaceB {
     this.setStatus("handshaking", "Performing handshake...");
 
     // 4. Handshake
-    await this.sendHandshake();
+    try {
+      await this.sendHandshake();
+    } catch (err) {
+      this.log("Handshake failed, cleaning up...");
+      this.setStatus("error", "Handshake failed");
+      await this.forceDisconnect();   // closes port + frees name
+      throw err;                      // bubble up to deviceManager
+    }
+
 
     this.log("Handshake complete.");
     this.setStatus("active", "Connected");
