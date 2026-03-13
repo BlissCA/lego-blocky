@@ -180,14 +180,19 @@ document.getElementById("stopBtn").onclick = async () => {
 // ---------------- CONNECT ----------------
 
 document.getElementById("connectBtn").onclick = async () => {
-  try {
-    await window.deviceManager.connectLegoInterfaceB();
-  //  logStatus("Connected to LEGO Interface B.");
-    refreshDevicesPanel();
-  } catch (err) {
-    logStatus("Connect error: " + err);
+  const dev = await window.deviceManager.connectLegoInterfaceB();
+
+  if (dev) {
+    // Success is already logged by deviceManager._addDevice()
+    // So we don't log anything here.
+  } else {
+    // User cancelled OR handshake failed
+    logStatus("Connection cancelled or device not responding.");
   }
+
+  refreshDevicesPanel();
 };
+
 
 // ---------------- DISCONNECT ALL ----------------
 
