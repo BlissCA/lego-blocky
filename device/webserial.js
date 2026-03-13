@@ -60,6 +60,13 @@ export class LegoInterfaceB {
     this.manager?.appendLog?.(this, msg);
   }
 
+  // ---------------- check if device is disconnected ----------------
+  ensureAlive() {
+    if (!this.port || !this.readingActive) {
+      throw new Error(`Device ${this.name} is disconnected`);
+    }
+  }
+
   // ---------------- Connection + Handshake ----------------
 
   async connect() {
@@ -432,6 +439,7 @@ export class LegoInterfaceB {
   }
 
   async outOn(port) {
+    this.ensureAlive();
     if (!this.shouldSendSingle(port, "on")) return;
     await this.sendCmdByte(0x28, this.normPort(port));
   }
@@ -447,6 +455,7 @@ export class LegoInterfaceB {
   }
 
   async outOff(port) {
+    this.ensureAlive();
     if (!this.shouldSendSingle(port, "off")) return;
     await this.sendCmdByte(0x38, this.normPort(port));
   }
