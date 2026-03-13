@@ -56,10 +56,8 @@ function legoCmd(block, method) {
   const port = javascriptGenerator.valueToCode(block, "PORT", javascriptGenerator.ORDER_NONE) || "0";
 
   return `
-const dev_${dev} = deviceManager.getDeviceByName("${dev}");
-if (shouldStop()) return;
-if (!dev_${dev}) throw new Error("Device lost");
-await dev_${dev}.${method}(${port});
+shouldStop();
+await deviceManager.getDeviceByName("${dev}").${method}(${port});
 `;
 }
 
