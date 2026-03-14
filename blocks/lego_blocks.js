@@ -450,7 +450,7 @@ Blockly.Blocks["lego_multi_out_off"] = {
     this.appendDummyInput()
       .appendField("1")
       .appendField(new Blockly.FieldCheckbox("FALSE"), "P1")
-      .appendField("2")
+      .appendField("B")
       .appendField(new Blockly.FieldCheckbox("FALSE"), "P2")
       .appendField("3")
       .appendField(new Blockly.FieldCheckbox("FALSE"), "P3")
