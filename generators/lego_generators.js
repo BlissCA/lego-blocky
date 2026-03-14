@@ -49,6 +49,15 @@ javascriptGenerator.forBlock["lego_inp_rot"] = function (block) {
   ];
 };
 
+// ---------------- Lego Interface B Output Port Letters A to H = 1 to 8 ----------------
+javascriptGenerator.forBlock["Legob_outportalpha"] = function (block) {
+  // Get the numerical value mapped to the selected letter
+  var code = block.getFieldValue('LETTER');
+  // Order.ATOMIC ensures the value is treated as a single unit in math expressions
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+
 // ---------------- OUTPUT BLOCKS ----------------
 
 function legoCmd(block, method) {

@@ -98,6 +98,25 @@ window.addEventListener("load", () => {
       "tooltip": "Returns rotation counter"
     },
 
+    {
+      "type": "Legob_outportalpha",
+      "message0": "constant %1",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "LETTER",
+          "options": [
+            ["A", "1"], ["B", "2"], ["C", "3"], ["D", "4"],
+            ["E", "5"], ["F", "6"], ["G", "7"], ["H", "8"]
+          ]
+        }
+      ],
+      "output": "Number",
+      "colour": 230,
+      "tooltip": "Returns a predefined constant value.",
+      "helpUrl": ""
+    },
+
     // ---------------- OUTPUT BLOCKS ----------------
 
     {
