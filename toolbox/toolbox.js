@@ -53,8 +53,7 @@ const toolbox = {
         { "kind": "block", "type": "math_modulo" },
         { "kind": "block", "type": "math_constrain" },
         { "kind": "block", "type": "math_random_int" },
-        { "kind": "block", "type": "math_random_float" },
-        { "kind": "block", "type": "Legob_outportalpha" }
+        { "kind": "block", "type": "math_random_float" }
       ]
     },
     {
@@ -266,6 +265,7 @@ const toolbox = {
           "kind": "category",
           "name": "Outputs Single Port",
           "contents": [
+            { "kind": "block", "type": "Legob_outportalpha" },
             {
               "kind": "block",
               "type": "lego_out_on",
