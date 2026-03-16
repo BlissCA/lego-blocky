@@ -105,19 +105,7 @@ const toolbox = {
       "custom": "PROCEDURE",
       "colour": 290
     },
-    {
-      "kind": "category",
-      "name": "Timers",
-      "colour": "230",
-      "contents": [
-        { "kind": "block", "type": "timer_after" },
-        { "kind": "block", "type": "timer_reset" },
-        { "kind": "block", "type": "timer_stop" },
-        { "kind": "block", "type": "timer_value" },
-        { "kind": "block", "type": "timer_done" },
-        { "kind": "block", "type": "timer_set_value" }
-      ]
-    },    
+
     {
       "kind": "category",
       "name": "Control+Wait",
