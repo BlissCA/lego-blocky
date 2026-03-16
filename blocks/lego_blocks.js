@@ -389,7 +389,7 @@ window.addEventListener("load", () => {
 
     {
       "type": "after_time_do",
-      "message0": "after %1 seconds do %2",
+      "message0": "after %1 sec do %2",
       "args0": [
         {
           "type": "input_value",
@@ -401,13 +401,13 @@ window.addEventListener("load", () => {
           "name": "DO"
         }
       ],
+      "inputsInline": true,
       "previousStatement": null,
       "nextStatement": null,
-      "colour": 230,
+      "colour": 60,
       "tooltip": "Executes code after a delay without blocking other blocks.",
-      "helpUrl": ""
     }
-    
+
   ]);
 });
 

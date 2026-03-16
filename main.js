@@ -23,7 +23,7 @@ window.debugLogPackets = debugLogPackets;
 
 // ---------------- EVENT-DRIVEN TIMER SCHEDULER ----------------
 
-window.ScheduledEvents = [];
+//window.ScheduledEvents = [];
 
 window.TimerScheduler = {
   schedule(delaySeconds, callback) {
