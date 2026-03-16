@@ -298,7 +298,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 }
               }
@@ -310,7 +310,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 }
               }
@@ -322,7 +322,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 }
               }
@@ -334,7 +334,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 }
               }
@@ -346,7 +346,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 }
               }
@@ -358,7 +358,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 }
               }
@@ -370,7 +370,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 }
               }
@@ -383,7 +383,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 },
                 "PWR": {
@@ -402,7 +402,7 @@ const toolbox = {
                 "PORT": {
                   "shadow": {
                     "type": "Legob_outportalpha",
-                    "fields": { "LETTER": "A" }
+                    "fields": { "LETTER": "1" }
                   }
                 },
                 "TIME": {
