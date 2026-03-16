@@ -653,6 +653,8 @@ Blockly.Blocks['timer_after'] = {
     this.appendStatementInput("DO")
         .setCheck(null);
 
+    this.setPreviousStatement(true);   // ✅ allow block before
+    this.setNextStatement(true);       // ✅ allow block after
     this.setColour(230);
     this.setTooltip("Starts the timer and runs the enclosed blocks once when time elapses.");
     this.setHelpUrl("");
