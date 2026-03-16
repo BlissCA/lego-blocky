@@ -451,6 +451,23 @@ window.addEventListener("load", () => {
       "nextStatement": null,
       "colour": 180,
       "tooltip": "Cancels Named Timer",
+    },
+
+    {
+      "type": "named_timer_done",
+      "message0": "%1 Timer Done?",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "TIMER_NAME",
+          "text": "T1",
+          "spellcheck": false
+        }
+      ],
+      "inputsInline": true,
+      "output": "Boolean",
+      "colour": 180,
+      "tooltip": "Check if Timer is Done",
     }
 
   ]);

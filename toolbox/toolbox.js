@@ -203,7 +203,12 @@ const toolbox = {
         {
           "kind": "block",
           "type": "cancel_named_timer"
+        },
+        {
+          "kind": "block",
+          "type": "named_timer_done"
         }
+
 
       ]
     },

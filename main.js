@@ -54,8 +54,13 @@ window.NamedEventTimer = {
       clearTimeout(window.NamedEventTimers[name].handle);
     }
 
+    // Create or reset timer state
+    window.NamedEventTimers[name] = {
+      handle: null,
+      done: false
+    };
+
     const handle = setTimeout(async () => {
-      // If program was stopped, do nothing
       if (stopRequested) return;
 
       try {
@@ -65,13 +70,13 @@ window.NamedEventTimer = {
         window.logStatus("Timer error: " + err);
       }
 
-      // Remove timer after firing
-      delete window.NamedEventTimers[name];
+      // Mark timer as done
+      window.NamedEventTimers[name].done = true;
 
     }, delaySeconds * 1000);
 
-    // Store timer
-    window.NamedEventTimers[name] = { handle };
+    // Store handle
+    window.NamedEventTimers[name].handle = handle;
   },
 
   cancel(name) {
@@ -79,6 +84,10 @@ window.NamedEventTimer = {
       clearTimeout(window.NamedEventTimers[name].handle);
       delete window.NamedEventTimers[name];
     }
+  },
+
+  isDone(name) {
+    return window.NamedEventTimers[name]?.done === true;
   }
 };
 

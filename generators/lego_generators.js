@@ -427,3 +427,7 @@ javascriptGenerator.forBlock['cancel_named_timer'] = function(block) {
 `;
 };
 
+javascriptGenerator.forBlock['named_timer_done'] = function(block) {
+  const name = block.getFieldValue('TIMER_NAME');
+  return [`NamedEventTimer.isDone("${name}")`, javascriptGenerator.ORDER_ATOMIC];
+};
