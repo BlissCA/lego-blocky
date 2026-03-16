@@ -385,8 +385,28 @@ window.addEventListener("load", () => {
       ],
       "output": "Boolean",
       "colour": 60
-    }
+    },
 
+    {
+      "type": "after_time_do",
+      "message0": "after %1 seconds do %2",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "TIME",
+          "check": "Number"
+        },
+        {
+          "type": "input_statement",
+          "name": "DO"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 230,
+      "tooltip": "Executes code after a delay without blocking other blocks.",
+      "helpUrl": ""
+    }
 
   ]);
 });
