@@ -433,6 +433,24 @@ window.addEventListener("load", () => {
       "nextStatement": null,
       "colour": 60,
       "tooltip": "Executes code after a delay without blocking other blocks.",
+    },
+
+    {
+      "type": "cancel_named_timer",
+      "message0": "%1 Cancel Timer",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "TIMER_NAME",
+          "text": "T1",
+          "spellcheck": false
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 60,
+      "tooltip": "Cancels Named Timer",
     }
 
   ]);

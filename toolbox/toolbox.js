@@ -198,6 +198,11 @@ const toolbox = {
               }
             }
           }
+        },
+
+        {
+          "kind": "block",
+          "type": "cancel_named_timer"
         }
 
       ]
