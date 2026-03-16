@@ -54,10 +54,16 @@ window.NamedEventTimer = {
       clearTimeout(window.NamedEventTimers[name].handle);
     }
 
+    const startTime = performance.now();
+    const duration = delaySeconds * 1000;
+
     // Create or reset timer state
     window.NamedEventTimers[name] = {
       handle: null,
-      done: false
+      done: false,
+      running: true,
+      startTime,
+      duration
     };
 
     const handle = setTimeout(async () => {
@@ -71,9 +77,13 @@ window.NamedEventTimer = {
       }
 
       // Mark timer as done
-      window.NamedEventTimers[name].done = true;
+      const t = window.NamedEventTimers[name];
+      if (t) {
+        t.done = true;
+        t.running = false;
+      }
 
-    }, delaySeconds * 1000);
+    }, duration);
 
     // Store handle
     window.NamedEventTimers[name].handle = handle;
@@ -88,6 +98,25 @@ window.NamedEventTimer = {
 
   isDone(name) {
     return window.NamedEventTimers[name]?.done === true;
+  },
+
+  isRunning(name) {
+    return window.NamedEventTimers[name]?.running === true;
+  },
+
+  elapsed(name) {
+    const t = window.NamedEventTimers[name];
+    if (!t) return 0;
+    if (t.done) return t.duration / 1000;
+    return (performance.now() - t.startTime) / 1000;
+  },
+
+  remaining(name) {
+    const t = window.NamedEventTimers[name];
+    if (!t) return 0;
+    if (t.done) return 0;
+    const rem = t.duration - (performance.now() - t.startTime);
+    return Math.max(0, rem / 1000);
   }
 };
 

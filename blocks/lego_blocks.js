@@ -455,7 +455,7 @@ window.addEventListener("load", () => {
 
     {
       "type": "named_timer_done",
-      "message0": "%1 Timer Done?",
+      "message0": "%1 Done?",
       "args0": [
         {
           "type": "field_input",
@@ -468,6 +468,57 @@ window.addEventListener("load", () => {
       "output": "Boolean",
       "colour": 180,
       "tooltip": "Check if Timer is Done",
+    },
+
+    {
+      "type": "named_timer_running",
+      "message0": "%1 Running?",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "TIMER_NAME",
+          "text": "T1",
+          "spellcheck": false
+        }
+      ],
+      "inputsInline": true,
+      "output": "Boolean",
+      "colour": 180,
+      "tooltip": "Check if Timer is Running",
+    },
+
+    {
+      "type": "named_timer_elapsed",
+      "message0": "%1 Running?",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "TIMER_NAME",
+          "text": "T1",
+          "spellcheck": false
+        }
+      ],
+      "inputsInline": true,
+      "output": "Number",
+      "colour": 180,
+      "tooltip": "Time Elapsed in Seconds",
+    },
+
+    {
+      "type": "named_timer_remaining",
+      "message0": "%1 Running?",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "TIMER_NAME",
+          "text": "T1",
+          "spellcheck": false
+        }
+      ],
+      "inputsInline": true,
+      "output": "Number",
+      "colour": 180,
+      "tooltip": "Time Remaining in Seconds",
     }
 
   ]);

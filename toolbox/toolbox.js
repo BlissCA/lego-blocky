@@ -207,8 +207,19 @@ const toolbox = {
         {
           "kind": "block",
           "type": "named_timer_done"
+        },
+        {
+          "kind": "block",
+          "type": "named_timer_running"
+        },
+        {
+          "kind": "block",
+          "type": "named_timer_elapsed"
+        },
+        {
+          "kind": "block",
+          "type": "named_timer_remaining"
         }
-
 
       ]
     },
