@@ -115,22 +115,7 @@ const toolbox = {
         { "kind": "block", "type": "timer_stop" },
         { "kind": "block", "type": "timer_value" },
         { "kind": "block", "type": "timer_done" },
-        { "kind": "block", "type": "timer_set_value" },
-        {
-          "kind": "block",
-          "type": "after_time_do",
-          "inputs": {
-            "TIME": {
-              "shadow": {
-                "type": "math_number",
-                "fields": {
-                  "NUM": 5
-                }
-              }
-            }
-          }
-        }
-
+        { "kind": "block", "type": "timer_set_value" }
       ]
     },    
     {

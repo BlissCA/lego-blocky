@@ -385,11 +385,3 @@ javascriptGenerator.forBlock['timer_set_value'] = function(block) {
 }
 `;
 };
-
-javascriptGenerator.forBlock['after_time_do'] = function(block, generator) {
-  const time = generator.valueToCode(block, 'TIME', generator.ORDER_ATOMIC) || '0';
-  const branch = generator.statementToCode(block, 'DO');
-  
-  // Wrap the code in a non-blocking setTimeout
-  return `setTimeout(function() {\n${branch}}, ${time} * 1000);\n`;
-};
