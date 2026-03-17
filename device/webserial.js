@@ -75,16 +75,7 @@ export class LegoInterfaceB {
 
     // 1. User selects a port
     try {
-      this.port = await navigator.serial.requestPort({
-      filters: [
-        // Filter 1: Standard Bluetooth SPP (Required for HC-05 on Android)
-        { bluetoothServiceClassId: '00001101-0000-1000-8000-00805f9b34fb' },
-        
-        // Filter 2: Empty object (Required for USB-Serial adapters on Desktop)
-        // This acts as a wildcard for non-Bluetooth serial ports
-        { }
-      ]
-      });
+      this.port = await navigator.serial.requestPort();
     } catch (err) {
       this.log("User cancelled port selection");
       throw err;  // bubble up to deviceManager
