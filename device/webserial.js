@@ -45,6 +45,27 @@ export class LegoInterfaceB {
     this.HANDSHAKE_REPLY = "###Just a bit off the block!$$$";
 
     this.KEEP_ALIVE = new Uint8Array([0x02]);
+    
+    this.commandQueue = Promise.resolve();
+    this.queueActive = true;
+
+  }
+
+  // ---------------- Command Queueing helper ----------------
+  enqueueCommand(fn) {
+    if (!this.queueActive) {
+      // Device is disconnecting or disconnected
+      return Promise.resolve();
+    }
+
+    // Chain the command onto the queue
+    this.commandQueue = this.commandQueue
+      .then(() => fn())
+      .catch(err => {
+        this.log("Queue command error: " + err);
+      });
+
+    return this.commandQueue;
   }
 
   // ---------------- Status + Logging ----------------
@@ -271,10 +292,15 @@ export class LegoInterfaceB {
     this.log("Starting keep-alive...");
     this.keepAliveTimer = setInterval(async () => {
       try {
-        if (!this.port || !this.port.writable) return;
-        const w = this.port.writable.getWriter();
-        await w.write(this.KEEP_ALIVE);
-        w.releaseLock();
+        this.enqueueCommand(async () => {
+          if (!this.port || !this.port.writable) return;
+          const w = this.port.writable.getWriter();
+          try {
+            await w.write(this.KEEP_ALIVE);
+          } finally {
+            w.releaseLock();
+          }
+        });
         this.log("Keep-alive sent");
       } catch (err) {
         this.log(`Keep-alive error: ${err.message || err}`);
@@ -293,10 +319,16 @@ export class LegoInterfaceB {
   // ---------------- Disconnect ----------------
 
   async disconnect() {
+    this.queueActive = false;
     this.log("Disconnecting...");
     this.setStatus("disconnected", "Disconnecting...");
 
     this.stopKeepAlive();
+    // Wait for queue to finish
+    try {
+      await this.commandQueue;
+    } catch {}
+
     this.readingActive = false;
 
     if (this.packetMonitor) {
@@ -347,6 +379,8 @@ export class LegoInterfaceB {
 
   // ---------------- force disconnect, a minimal cleanup if handshake times out ----------------
   async forceDisconnect() {
+    this.queueActive = false;
+    this.commandQueue = Promise.resolve(); // Drop pending commands    
     this.stopKeepAlive();
     this.readingActive = false;
 
@@ -419,14 +453,16 @@ export class LegoInterfaceB {
   // ---------------- Outputs Processing ----------------
 
   async writeBytes(bytes) {
-    if (!this.port || !this.port.writable) return;
+    return this.enqueueCommand(async () => {
+      if (!this.port || !this.port.writable) return;
 
-    const writer = this.port.writable.getWriter();
-    try {
-      await writer.write(bytes);
-    } finally {
-      writer.releaseLock();
-    }
+      const writer = this.port.writable.getWriter();
+      try {
+        await writer.write(bytes);
+      } finally {
+        writer.releaseLock();
+      }
+    });
   }
 
   async sendCmdByte(base, port) {
