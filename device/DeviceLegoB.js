@@ -1,4 +1,4 @@
-// device/webserial.js
+// device/DeviceLegoB.js
 // ES-module version of your original LegoInterfaceB.
 // Only change: exported, and `manager` is expected to provide
 // updateDeviceEntry(device) and appendLog(device, message).

@@ -1,6 +1,6 @@
 // device/deviceManager.js
 
-import { LegoInterfaceB } from './webserial.js';
+import { LegoInterfaceB } from './DeviceLegoB.js';
 
 export class DeviceManager {
   constructor() {

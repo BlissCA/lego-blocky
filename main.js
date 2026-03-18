@@ -11,7 +11,7 @@ import "./generators/lego_generators.js";
 import toolbox from "./toolbox/toolbox.js";
 
 // Device system
-import "./device/webserial.js";
+import "./device/DeviceLegoB.js";
 import "./device/deviceManager.js";
 
 // ---------------- GLOBAL EXECUTION CONTROL ----------------
