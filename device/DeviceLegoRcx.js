@@ -119,6 +119,7 @@ export class LegoRcx {
   async writeBytes(bytes) {
     return this.enqueue(async () => {
       if (!this.port || !this.writer) return;
+      console.log("Sent:", bytes);
       await this.writer.write(bytes);
     });
   }
