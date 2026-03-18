@@ -96,11 +96,7 @@ export class LegoInterfaceB {
 
     // 1. User selects a port
     try {
-      this.port = await navigator.serial.requestPort({
-        filters: [{
-          bluetoothServiceClassId: "00001101-0000-1000-8000-00805f9b34fb"
-        }]
-      }); // await window.autoSelectPort();  // WAS: await navigator.serial.requestPort();
+      this.port = await window.autoSelectPort();  // WAS: await navigator.serial.requestPort();
     } catch (err) {
       this.log("User cancelled port selection");
       throw err;  // bubble up to deviceManager
