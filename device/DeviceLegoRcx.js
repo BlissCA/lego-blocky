@@ -19,6 +19,10 @@ export class LegoRcx {
     this.opCodeEx = new Set([0xF7]);
   }
 
+  log(msg) {
+    console.log(`[RCX ${this.name}] ${msg}`);
+  }
+
   // ---------------- Queue ----------------
   enqueue(fn) {
     if (!this.queueActive) return Promise.resolve();
@@ -50,6 +54,7 @@ export class LegoRcx {
     const ok = await this.alive();
     if (!ok) {
       this.log("RCX did not respond. Power it on.");
+      window.logStatus(`RCX ${this.name}: Please power on the RCX.`);
     }
 
   }
@@ -95,7 +100,7 @@ export class LegoRcx {
   // ---------------- Write ----------------
   async writeBytes(bytes) {
     if (!this.writer) return;
-    console.log("Sent:", bytes);
+    this.log("Sent:", bytes);
     await this.writer.write(bytes);
   }
 
