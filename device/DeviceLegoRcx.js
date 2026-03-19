@@ -100,7 +100,7 @@ export class LegoRcx {
   // ---------------- Write ----------------
   async writeBytes(bytes) {
     if (!this.writer) return;
-    this.log("Sent:", bytes);
+    console.log("Sent:", bytes);
     await this.writer.write(bytes);
   }
 
@@ -255,7 +255,7 @@ export class LegoRcx {
     if (v >= 32768) v -= 65536;
     return v;
   }
-  
+
   mot(mask) {
     return new RcxMotor(this, mask);
   }
