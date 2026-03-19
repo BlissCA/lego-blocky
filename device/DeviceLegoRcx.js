@@ -255,6 +255,70 @@ export class LegoRcx {
     if (v >= 32768) v -= 65536;
     return v;
   }
+  
+  mot(mask) {
+    return new RcxMotor(this, mask);
+  }
+
+  sensor(port) {
+    return new RcxSensor(this, port);
+  }
+
+}
+
+class RcxMotor {
+  constructor(rcx, motors) {
+    this.rcx = rcx;
+    this.motors = motors & 0x07; // A=1, B=2, C=4
+  }
+
+  async on() {
+    return this.rcx.rcxCmd(Uint8Array.from([0x21, 0x80 | this.motors]));
+  }
+
+  async off() {
+    return this.rcx.rcxCmd(Uint8Array.from([0x21, 0x40 | this.motors]));
+  }
+
+  async float() {
+    return this.rcx.rcxCmd(Uint8Array.from([0x21, 0x00 | this.motors]));
+  }
+
+  async flip() {
+    return this.rcx.rcxCmd(Uint8Array.from([0xE1, 0x40 | this.motors]));
+  }
+
+  async f() {
+    return this.rcx.rcxCmd(Uint8Array.from([0xE1, 0x80 | this.motors]));
+  }
+
+  async r() {
+    return this.rcx.rcxCmd(Uint8Array.from([0xE1, 0x00 | this.motors]));
+  }
+
+  async pow(power) {
+    const p = power & 0x07;
+    return this.rcx.rcxCmd(Uint8Array.from([0x13, this.motors, 0x02, p]));
+  }
+}
+
+class RcxSensor {
+  constructor(rcx, input) {
+    this.rcx = rcx;
+    this.input = Math.max(0, Math.min(2, input));
+  }
+
+  async type(typeNo) {
+    return this.rcx.rcxCmd(Uint8Array.from([0x32, this.input, typeNo & 0xFF]));
+  }
+
+  async mode(modeCode) {
+    return this.rcx.rcxCmd(Uint8Array.from([0x42, this.input, modeCode & 0xFF]));
+  }
+
+  async clear() {
+    return this.rcx.rcxCmd(Uint8Array.from([0xD1, this.input]));
+  }
 }
 
 window.LegoRcx = LegoRcx;
