@@ -49,25 +49,41 @@ export class LegoRcx {
 
   // ---------------- Background Reader ----------------
   async startReadLoop() {
-    this.reader = this.port.readable.getReader();
+    while (this.readLoopActive) {
+      try {
+        this.reader = this.port.readable.getReader();
 
-    try {
-      while (this.readLoopActive) {
-        const { value, done } = await this.reader.read();
-        if (done || !value) break;
+        while (this.readLoopActive) {
+          const { value, done } = await this.reader.read();
+          if (done) break;
+          if (value) {
+            // Append to buffer
+            let tmp = new Uint8Array(this.incoming.length + value.length);
+            tmp.set(this.incoming);
+            tmp.set(value, this.incoming.length);
+            this.incoming = tmp;
+          }
+        }
 
-        // Append to buffer
-        let tmp = new Uint8Array(this.incoming.length + value.length);
-        tmp.set(this.incoming);
-        tmp.set(value, this.incoming.length);
-        this.incoming = tmp;
+      } catch (err) {
+        console.warn(`[RCX ${this.name}] Reader stopped:`, err);
+
+        // ⭐ If parity error, restart reader
+        if (err?.name === "ParityError" || err?.message?.includes("Parity")) {
+          console.warn(`[RCX ${this.name}] Restarting reader after parity error`);
+          await new Promise(r => setTimeout(r, 20));
+          continue; // restart outer loop
+        }
+
+        // Other errors → break
+        break;
+
+      } finally {
+        try { this.reader?.releaseLock(); } catch {}
       }
-    } catch (err) {
-      console.warn("Reader stopped:", err);
-    } finally {
-      try { this.reader.releaseLock(); } catch {}
     }
   }
+
 
   // ---------------- Write ----------------
   async writeBytes(bytes) {
