@@ -45,6 +45,13 @@ export class LegoRcx {
     this.startReadLoop();
 
     console.log(`[RCX ${this.name}] Connected.`);
+
+    // Try alive ping
+    const ok = await this.alive();
+    if (!ok) {
+      this.log("RCX did not respond. Power it on.");
+    }
+
   }
 
   // ---------------- Background Reader ----------------
