@@ -92,15 +92,12 @@ export class LegoRcx {
 
       const buff = this.mkSerBuffWr(cmd);
 
-      // Expected signature
       const replyCode = buff[4];
       const replyComp = buff[3];
       const signature = Uint8Array.from([0x55, 0xFF, 0x00, replyCode, replyComp]);
 
-      // Write command
       await this.writeBytes(buff);
 
-      // Create a reader for this command only
       const reader = this.port.readable.getReader();
 
       try {
@@ -108,21 +105,31 @@ export class LegoRcx {
         let collected = new Uint8Array(0);
         let found = -1;
 
-        // Read until signature found or timeout
-        while (performance.now() < t0 + 1000) {
-          const { value, done } = await reader.read();
+        while (performance.now() < t0 + 200) {   // RCX replies within 50–100ms
+          let readTimeout = false;
+
+          const readPromise = reader.read();
+          const timeoutPromise = new Promise(r => setTimeout(() => {
+            readTimeout = true;
+            r({ value: null, done: false });
+          }, 20)); // 20ms timeout per read
+
+          const { value, done } = await Promise.race([readPromise, timeoutPromise]);
+
+          if (readTimeout) continue;
           if (done) break;
           if (!value) continue;
 
-          // Append bytes
           let tmp = new Uint8Array(collected.length + value.length);
           tmp.set(collected);
           tmp.set(value, collected.length);
           collected = tmp;
 
-          // Look for signature
-          found = this.findSignature(collected, signature);
-          if (found !== -1) break;
+          // Require at least 6 bytes (header + opcode + complement)
+          if (collected.length >= 6) {
+            found = this.findSignature(collected, signature);
+            if (found !== -1) break;
+          }
         }
 
         if (found === -1) {
@@ -130,12 +137,22 @@ export class LegoRcx {
           return null;
         }
 
-        // Extract returned values
+        // Extract values
         if (vblen > 0) {
           const needed = signature.length + 2 * vblen;
 
           while (collected.length < found + needed) {
-            const { value, done } = await reader.read();
+            let readTimeout = false;
+
+            const readPromise = reader.read();
+            const timeoutPromise = new Promise(r => setTimeout(() => {
+              readTimeout = true;
+              r({ value: null, done: false });
+            }, 20));
+
+            const { value, done } = await Promise.race([readPromise, timeoutPromise]);
+
+            if (readTimeout) continue;
             if (done) break;
             if (!value) continue;
 
@@ -154,8 +171,11 @@ export class LegoRcx {
 
         return Uint8Array.from([0x00]);
 
+      } catch (err) {
+        console.warn(`[RCX ${this.name}] Read error:`, err);
+        return null;
+
       } finally {
-        // Release reader WITHOUT cancel()
         try { reader.releaseLock(); } catch {}
       }
     });
