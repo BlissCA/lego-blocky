@@ -110,7 +110,7 @@ export class LegoRcx {
         let found = -1;
 
         // Read until signature found or timeout
-        while (performance.now() < t0 + 200) {
+        while (performance.now() < t0 + 500) {
 
           let value = null;
           let done = false;
@@ -151,7 +151,7 @@ export class LegoRcx {
             if (found !== -1) break;
           }
         }
-        
+
         if (found === -1) {
           console.warn(`[RCX ${this.name}] No reply for cmd ${cmd[0].toString(16)}`);
           return null;
