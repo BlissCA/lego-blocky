@@ -560,6 +560,16 @@ window.addEventListener("load", () => {
       "previousStatement": null,
       "nextStatement": null,
       "colour": 20
+    },
+    {
+      "type": "rcx_alive",
+      "message0": "%1 alive?",
+      "args0": [
+        { "type": "field_dropdown", "name": "DEVICE", "options": getRcxDropdown }
+      ],
+      "inputsInline": true,
+      "output": "Boolean",
+      "colour": 20
     }
 
   ]);
