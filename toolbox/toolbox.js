@@ -507,6 +507,16 @@ const toolbox = {
 
       ]
     },
+    {
+      "kind": "category",
+      "name": "Lego RCX",
+      "colour": 20,
+      "contents": [
+        { "kind": "category", "name": "Motors", "colour": 20, "contents": []},
+        { "kind": "category", "name": "Sensors Config", "colour": 20, "contents": []},
+        { "kind": "category", "name": "Misc", "colour": 20, "contents": []}
+      ]
+    }
 /*     {
       "kind": "category",
       "name": "HMI",

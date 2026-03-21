@@ -9,6 +9,8 @@ export class LegoRcx {
     this.reader = null;
     this.writer = null;
 
+    this.status = "idle";
+
     this.queue = Promise.resolve();
     this.queueActive = true;
 
@@ -42,6 +44,8 @@ export class LegoRcx {
     this.writer = this.port.writable.getWriter();
 
     console.log(`[RCX ${this.name}] Connected.`);
+    this.status = "Connected";
+
 
     // Try alive ping
     const ok = await this.alive();
@@ -228,6 +232,8 @@ export class LegoRcx {
     this.port = null;
 
     console.log(`[RCX ${this.name}] Disconnected.`);
+    this.status = "Disconnected";
+
   }
 
   // ---------------- High-level commands ----------------

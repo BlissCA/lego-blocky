@@ -13,24 +13,27 @@ export class DeviceManager {
   }
 
   // -------------------------
-  // Name Allocation
+  // Name Allocation (generalized)
   // -------------------------
 
-  _allocateName() {
-    // Reuse freed names first
-    if (this.freeNames.length > 0) {
-      const name = this.freeNames.shift();
-      this.usedNames.add(name);
-      return name;
+  _allocateName(prefix) {
+    // Reuse freed names matching this prefix
+    for (let i = 0; i < this.freeNames.length; i++) {
+      const name = this.freeNames[i];
+      if (name.startsWith(prefix)) {
+        this.freeNames.splice(i, 1);
+        this.usedNames.add(name);
+        return name;
+      }
     }
 
-    // Otherwise create the next LegoB#
+    // Otherwise create next prefix#
     let i = 1;
-    while (this.usedNames.has(`LegoB${i}`)) {
+    while (this.usedNames.has(`${prefix}${i}`)) {
       i++;
     }
 
-    const name = `LegoB${i}`;
+    const name = `${prefix}${i}`;
     this.usedNames.add(name);
     return name;
   }
@@ -79,23 +82,43 @@ export class DeviceManager {
   }
 
   // -------------------------
-  // Connect a LEGO Interface B
+  // Connect LEGO Interface B
   // -------------------------
 
   async connectLegoInterfaceB() {
-    const dev = new LegoInterfaceB(null, this);
+    const name = this._allocateName("LegoB");
+    const dev = new LegoInterfaceB(name, this);
 
     try {
-      await dev.connect();      // name allocated inside connect()
+      await dev.connect();
       this._addDevice(dev);
       return dev;
 
     } catch (err) {
       console.warn("Connection failed:", err);
-
-      // Cleanup even if handshake never completed
       await dev.forceDisconnect();
+      this._freeName(name);
+      return null;
+    }
+  }
 
+  // -------------------------
+  // Connect LEGO RCX
+  // -------------------------
+
+  async connectRcx() {
+    const name = this._allocateName("Rcx");
+    const dev = new LegoRcx(name, this);
+
+    try {
+      await dev.connect();
+      this._addDevice(dev);
+      return dev;
+
+    } catch (err) {
+      console.warn("RCX connection failed:", err);
+      await dev.forceDisconnect();
+      this._freeName(name);
       return null;
     }
   }
@@ -116,7 +139,6 @@ export class DeviceManager {
 
     window.logStatus?.("All devices disconnected.");
   }
-
 
   // -------------------------
   // Handle Device Loss

@@ -12,6 +12,7 @@ import toolbox from "./toolbox/toolbox.js";
 
 // Device system
 import "./device/DeviceLegoB.js";
+import "./device/DeviceLegoRcx.js";
 import "./device/deviceManager.js";
 
 // ---------------- GLOBAL EXECUTION CONTROL ----------------
@@ -316,11 +317,18 @@ document.getElementById("stopBtn").onclick = async () => {
   stopRequested = true;
   logStatus("Stopping program...");
 
-  // Stop all motors on all devices
   for (const dev of window.deviceManager.devices) {
     try {
-      for (let port = 1; port <= 8; port++) {
-        await dev.outOff(port);
+      if (dev.outOff) {
+        // LEGO Interface B
+        for (let port = 1; port <= 8; port++) {
+          await dev.outOff(port);
+        }
+      } else if (dev.mot) {
+        // RCX: stop all motors A, B, C
+        await dev.mot(0x01).off();
+        await dev.mot(0x02).off();
+        await dev.mot(0x04).off();
       }
     } catch (err) {
       console.warn("Output stop error:", err);
@@ -330,9 +338,9 @@ document.getElementById("stopBtn").onclick = async () => {
   logStatus("Program stopped (devices remain connected).");
 };
 
-// ---------------- CONNECT ----------------
+// ---------------- CONNECT Lego Interface B ----------------
 
-document.getElementById("connectBtn").onclick = async () => {
+document.getElementById("connectBtnLegoB").onclick = async () => {
   const dev = await window.deviceManager.connectLegoInterfaceB();
 
   if (dev) {
@@ -341,6 +349,18 @@ document.getElementById("connectBtn").onclick = async () => {
   } else {
     // User cancelled OR handshake failed
     logStatus("Connection cancelled or device not responding.");
+  }
+
+  refreshDevicesPanel();
+};
+
+// ---------------- CONNECT Lego RCX ----------------
+
+document.getElementById("connectBtnRcx").onclick = async () => {
+  const dev = await window.deviceManager.connectRcx();
+
+  if (!dev) {
+    logStatus("RCX connection cancelled or device not responding.");
   }
 
   refreshDevicesPanel();
