@@ -514,7 +514,23 @@ const toolbox = {
       "contents": [
         { "kind": "category", "name": "Motors", "colour": 20, "contents": []},
         { "kind": "category", "name": "Sensors Config", "colour": 20, "contents": []},
-        { "kind": "category", "name": "Misc", "colour": 20, "contents": []}
+        { "kind": "category", "name": "Misc", "colour": 20, "contents": [
+            {
+              "kind": "block",
+              "type": "rcx_snd",
+              "inputs": {
+                "SOUND": {
+                  "shadow": {
+                    "type": "math_number",
+                    "fields": {
+                      "NUM": 1
+                    }
+                  }
+                }
+              }              
+            }
+          ]
+        }
       ]
     }
 /*     {

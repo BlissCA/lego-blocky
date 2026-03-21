@@ -386,3 +386,18 @@ javascriptGenerator.forBlock['named_timer_remaining'] = function(block) {
   const name = block.getFieldValue('TIMER_NAME');
   return [`NamedEventTimer.remaining("${name}")`, javascriptGenerator.ORDER_ATOMIC];
 };
+
+// ---------------- RCX DEVICE GENERATORS ----------------
+javascriptGenerator.forBlock["rcx_snd"] = function (block) {
+  const dev  = block.getFieldValue("DEVICE");
+  const sound = javascriptGenerator.valueToCode(block, "SOUND", javascriptGenerator.ORDER_NONE) || "0";
+
+  return `
+{
+  shouldStop();
+  const dev = deviceManager.getDeviceByName("${dev}");
+  if (!dev) throw new Error("Device lost");
+  await dev.snd(${sound});
+}
+`;
+};

@@ -543,6 +543,23 @@ window.addEventListener("load", () => {
       "output": "Number",
       "colour": 180,
       "tooltip": "Time Remaining in Seconds",
+    },
+
+    {
+      "type": "rcx_snd",
+      "message0": "%1 sound %2",
+      "args0": [
+        { "type": "field_dropdown", "name": "DEVICE", "options": getRcxDropdown },
+        {
+          "type": "input_value",
+          "name": "SOUND",
+          "check": "Number",
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 20
     }
 
   ]);
