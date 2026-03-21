@@ -67,7 +67,7 @@ export class LegoRcx {
   // ---------------- Write ----------------
   async writeBytes(bytes) {
     if (!this.writer) return;
-    console.log("Sent:", bytes.toHex());
+    console.log("Sent:", bytes.toHex().match(/.{1,2}/g).join(' '));
     await this.writer.write(bytes);
   }
 
