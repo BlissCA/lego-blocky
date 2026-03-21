@@ -122,7 +122,7 @@ export class LegoRcx {
         let found = -1;
 
         // Read until signature found or timeout
-        while (performance.now() < t0 + 500) {
+        while (performance.now() < t0 + 1000) {
 
           let value = null;
           let done = false;
