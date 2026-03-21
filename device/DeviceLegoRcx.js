@@ -99,19 +99,22 @@ export class LegoRcx {
     return Uint8Array.from([0x55, 0xFF, 0x00, ...buff]);
   }
 
-  async rcxCmd(cmd, vblen = 0) {
-    return this.enqueue(async () => {
+async rcxCmd(cmd, vblen = 0) {
+  return this.enqueue(async () => {
 
-      const buff = this.mkSerBuffWr(cmd);
+    const buff = this.mkSerBuffWr(cmd);
 
-      const replyCode = buff[4];
-      const replyComp = buff[3];
-      const signature = Uint8Array.from([0x55, 0xFF, 0x00, replyCode, replyComp]);
+    const replyCode = buff[4];
+    const replyComp = buff[3];
+    const signature = Uint8Array.from([0x55, 0xFF, 0x00, replyCode, replyComp]);
+
+    // Try up to 3 times
+    for (let attempt = 1; attempt <= 3; attempt++) {
 
       // Write command
       await this.writeBytes(buff);
 
-      // ⭐ REQUIRED DELAY for RCX IR tower half‑duplex switching
+      // Allow IR tower to switch TX→RX
       await new Promise(r => setTimeout(r, 20));
 
       const reader = this.port.readable.getReader();
@@ -122,13 +125,12 @@ export class LegoRcx {
         let found = -1;
 
         // Read until signature found or timeout
-        while (performance.now() < t0 + 1000) {
+        while (performance.now() < t0 + 200) {
 
           let value = null;
           let done = false;
 
           try {
-            // Try reading with timeout
             const readPromise = reader.read();
             const timeoutPromise = new Promise(r => setTimeout(() => {
               r({ value: null, done: false });
@@ -137,13 +139,10 @@ export class LegoRcx {
             ({ value, done } = await Promise.race([readPromise, timeoutPromise]));
 
           } catch (err) {
-            // ⭐ Ignore parity errors completely
+            // Ignore parity errors
             if (err?.name === "ParityError" || err?.message?.includes("Parity")) {
-              // Treat as no data
               continue;
             }
-
-            // Other errors → abort command
             console.warn(`[RCX ${this.name}] Read error:`, err);
             break;
           }
@@ -157,62 +156,59 @@ export class LegoRcx {
           tmp.set(value, collected.length);
           collected = tmp;
 
-          // Require at least 6 bytes before checking signature
           if (collected.length >= 6) {
             found = this.findSignature(collected, signature);
             if (found !== -1) break;
           }
         }
 
-        if (found === -1) {
-          console.warn(`[RCX ${this.name}] No reply for cmd ${cmd[0].toString(16)}`);
-          return null;
-        }
+        // If reply found → extract values and return
+        if (found !== -1) {
 
-        // Extract values
-        if (vblen > 0) {
-          const needed = signature.length + 2 * vblen;
+          if (vblen > 0) {
+            const needed = signature.length + 2 * vblen;
 
-          while (collected.length < found + needed) {
-            let readTimeout = false;
+            while (collected.length < found + needed) {
+              const readPromise = reader.read();
+              const timeoutPromise = new Promise(r => setTimeout(() => {
+                r({ value: null, done: false });
+              }, 20));
 
-            const readPromise = reader.read();
-            const timeoutPromise = new Promise(r => setTimeout(() => {
-              readTimeout = true;
-              r({ value: null, done: false });
-            }, 20));
+              const { value, done } = await Promise.race([readPromise, timeoutPromise]);
+              if (done || !value) break;
 
-            const { value, done } = await Promise.race([readPromise, timeoutPromise]);
+              let tmp = new Uint8Array(collected.length + value.length);
+              tmp.set(collected);
+              tmp.set(value, collected.length);
+              collected = tmp;
+            }
 
-            if (readTimeout) continue;
-            if (done) break;
-            if (!value) continue;
-
-            let tmp = new Uint8Array(collected.length + value.length);
-            tmp.set(collected);
-            tmp.set(value, collected.length);
-            collected = tmp;
+            let vals = [];
+            for (let i = 0; i < vblen; i++) {
+              vals.push(collected[found + signature.length + i * 2]);
+            }
+            return Uint8Array.from(vals);
           }
 
-          let vals = [];
-          for (let i = 0; i < vblen; i++) {
-            vals.push(collected[found + signature.length + i * 2]);
-          }
-          return Uint8Array.from(vals);
+          return Uint8Array.from([0x00]);
         }
 
-        return Uint8Array.from([0x00]);
-
-      } catch (err) {
-        console.warn(`[RCX ${this.name}] Read error:`, err);
-        return null;
+        // No reply → retry
+        console.warn(`[RCX ${this.name}] No reply for cmd ${cmd[0].toString(16)} (attempt ${attempt})`);
 
       } finally {
         try { reader.releaseLock(); } catch {}
       }
-    });
-  }
 
+      // Small delay before retry
+      await new Promise(r => setTimeout(r, 30));
+    }
+
+    // All retries failed
+    console.warn(`[RCX ${this.name}] Command failed after 3 attempts: ${cmd[0].toString(16)}`);
+    return null;
+  });
+}
   findSignature(buffer, signature) {
     for (let i = 0; i <= buffer.length - signature.length; i++) {
       let ok = true;
