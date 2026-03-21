@@ -405,12 +405,8 @@ javascriptGenerator.forBlock["rcx_snd"] = function (block) {
 javascriptGenerator.forBlock["rcx_alive"] = function (block) {
   const dev = block.getFieldValue("DEVICE");
 
-  return `
-{
-  shouldStop();
-  const dev = deviceManager.getDeviceByName("${dev}");
-  if (!dev) throw new Error("Device lost");
-  await dev.alive();
-}
-`;
+  return [
+    `deviceManager.getDeviceByName("${dev}").inputOn(${port}).alive()`,
+    javascriptGenerator.ORDER_NONE
+  ];
 };
