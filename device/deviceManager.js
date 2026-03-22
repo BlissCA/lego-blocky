@@ -86,7 +86,6 @@ export class DeviceManager {
   // -------------------------
 
   async connectLegoInterfaceB() {
-    const name = this._allocateName("LegoB");
     const dev = new LegoInterfaceB(null, this);
 
     try {
@@ -107,7 +106,6 @@ export class DeviceManager {
   // -------------------------
 
   async connectRcx() {
-    const name = this._allocateName("Rcx");
     const dev = new LegoRcx(null, this);
 
     try {
