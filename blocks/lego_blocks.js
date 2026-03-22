@@ -660,7 +660,7 @@ window.addEventListener("load", () => {
 
     {
       "type": "rcx_mot_r",
-      "message0": "%1 Motors %2 SET RIGHT",
+      "message0": "%1 Motors %2 Set reverse",
       "args0": [
         { "type": "field_dropdown", "name": "DEVICE", "options": getRcxDropdown },
         {
